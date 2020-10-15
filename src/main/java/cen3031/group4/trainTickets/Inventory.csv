@@ -1,0 +1,17 @@
+Train ID,From,To,IsExpress,Distance(km),Capacity,Days,Soft Seats,Hard Seats,Soft Sleeper,Hard sleeper,Breakfast,Lunch,Dinner
+101,Wagsville,Gujranwala,T,500,10,3,T,T,F,T,F,T,T
+102,Wagsville,Gujranwala,F,500,10,3,T,T,F,T,F,T,T
+103,Wagsville,Bread Ponds City,T,2000,10,6,T,T,T,T,T,T,T
+104,Wagsville,Bread Ponds City,F,2000,10,6,T,T,T,T,T,T,T
+105,Gujranwala,Flipperton,T,500,10,3,T,T,F,T,F,T,T
+106,Gujranwala,Flipperton,F,500,10,3,T,T,F,T,F,T,T
+107,Gujranwala,New Wingsford,T,1000,10,4,T,T,T,T,T,T,T
+108,Gujranwala,New Wingsford,F,1000,10,4,T,T,T,T,T,T,T
+109,Flipperton,Chesterdale,T,2000,10,6,T,T,T,T,T,T,T
+110,Flipperton,Chesterdale,F,2000,10,6,T,T,T,T,T,T,T
+111,New Wingsford,Chesterdale,T,1000,10,4,T,T,T,T,T,T,T
+112,New Wingsford,Chesterdale,F,1000,10,4,T,T,T,T,T,T,T
+113,Chesterdale,Waddlesborough,F,250,10,2,T,T,F,F,T,F,T
+114,Waddlesborough,Bread Ponds City,F,250,10,2,T,T,F,F,T,F,T
+115,Bread Ponds City,Billington,T,1000,10,4,T,T,T,T,T,T,T
+116,Bread Ponds City,Billington,F,1000,10,4,T,T,T,T,T,T,T
