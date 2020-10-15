@@ -9,7 +9,7 @@ public class Main
 
 	public static void main(String[] args)
 	{
-		String fileDir="D:/SoftwareEng/TrainProject/cen3031-80066-group4/src/main/java/cen3031/group4/trainTickets/Inventory.csv";
+		String fileDir="src/main/java/cen3031/group4/trainTickets/Inventory.csv";
 		
 		Scanner infoIn = new Scanner(System.in);
 		Scanner userIn = new Scanner(System.in);
