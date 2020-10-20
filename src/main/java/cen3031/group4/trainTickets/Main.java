@@ -3,6 +3,8 @@ package cen3031.group4.trainTickets;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -14,74 +16,62 @@ public class Main
 	public static void main(String[] args)
 	{
 		int route;
-		
-		@SuppressWarnings("unused")
+		int numLines=0;
 		String fileDir="src/main/java/cen3031/group4/trainTickets/Inventory.csv";
 		
+		@SuppressWarnings("resource")
 		Scanner infoIn = new Scanner(System.in);
+		@SuppressWarnings("resource")
 		Scanner userIn = new Scanner(System.in);
 		
 		
 		try
 		{
+			
+			
 			FileInputStream fileIn = new FileInputStream(fileDir);
 			@SuppressWarnings("resource")
 			Scanner input = new Scanner(fileIn);
 			input.useDelimiter(",");
 			
-			
-			
-			
-			FileInputStream clean = new FileInputStream(fileDir);
-			@SuppressWarnings("resource")
-			Scanner cleanCopy = new Scanner(clean);
-			cleanCopy.useDelimiter(",");
-			
-			String[][] trainArray = new String[14][17];
-			
-			
-			for(int i=0;i<14;i++)
+			LineNumberReader lines= new LineNumberReader(new FileReader(fileDir));
+			while(lines.readLine() != null)
 			{
-				for(int j=0;j<17;j++)
+				numLines = lines.getLineNumber();
+			}
+			
+			
+			String trainArray[][] = new String[14][numLines];
+			
+			
+			for(int i=0;i<13;i++)
+			{
+				for(int j=0;j<numLines;j++)
 				{
-					while(input.hasNext())
-					{
 					trainArray[i][j]= input.next();
-					//System.out.print(trainArray[i][j]+ " ");
-					}
-				
 				}
 			}
+			
+			
 			do
 			{
-			System.out.println("Please choose a route:\n"+
-							   "1:  Wagsville to Gujranwala\n"+
-							   "2:  Wagsville to Bread Ponds City\n\n"+
-							   "3:  Gujranwala to Wagsville\n"+
-							   "4:  Gujranwala to Flipperton\n"+
-							   "5:  Gujranwala New Wingsford\n\n"+
-							   "6:  Flipperton to Gujranwala\n"+
-							   "7:  Flipperton to Chesterdale\n\n"+
-							   "8:  Chesterdale to Flipperton\n"+
-							   "9:  Chesterdale to New Wingsford\n"+
-							   "10: Chesterdale to Waddlesborough\n\n"+
-							   "11: New Wingsford to Chesterdale\n"+
-							   "12: New Wingsford to Gujranwala\n\n"+
-							   "13: Waddlesborough to Chesterdale\n"+
-							   "14: Waddlesborough to Bread Ponds City\n\n"+
-							   "15: Bread Ponds City to Wagsville\n"+
-							   "16: Bread Ponds City to Waddlesborough\n"+
-							   "17: Bread Ponds City to Billington\n\n"+
-							   "18: Billington to Bread Ponds City\n"+
-							   "------------------------------------\n"+
-							   "Your choice: ");
+				
+				for(int i=0;i<13;i++)
+				{
+					for(int j=0;j<numLines;j++)
+					{
+						
+						System.out.print(trainArray[i][j] +" ");
+					}
+				}
+				
 			route = infoIn.nextInt();
-			if(route>=19||route<=0)
+			if(!(route>=101&& route<=(100+numLines)))
 			{
-				System.out.println("Invalid choice! Please select a route 1-18");
+				System.out.println("Invalid choice! Please select a valid Train ID!");
 			}
 			
-			}while(route>=19||route<=0);
+			}while(!(route>=101&& route<=(100+numLines)));
 			
 			
 			
