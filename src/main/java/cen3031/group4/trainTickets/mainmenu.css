@@ -1,0 +1,31 @@
+
+#mainPane{
+	-fx-background-image: url("main_background.jpg");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 900 506;
+	-fx-background-position: center center;
+	-fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+.button {
+	-fx-background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+	-fx-background-color:#7892c2;
+	-fx-border-radius:42px;
+	-fx-display:inline-block;
+	-fx-cursor: pointer;
+	-fx-color: #ffffff;
+	-fx-font-family: Times New Roman;
+	-fx-font-size: 12px;
+	-fx-padding: 9px 15px;
+	-fx-text-decoration:none;
+}
+.button:hover {
+	-fx-background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+	-fx-background-color:#476e9e;
+}
+.button:active {
+	-fx-position:relative;
+	-fx-top:1px;
+}
+
+
