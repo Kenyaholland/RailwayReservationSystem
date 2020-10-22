@@ -3,38 +3,43 @@ package cen3031.group4.trainTickets;
 public class Train
 {
 
-	private String name;
-	private int route;
-	private int trainID;
-	private boolean meals,isSleeper,express;
-	private String seatingOption,sleeper,mealOption;
+	private String to, from;
+	private int distance;
+	private int trainID, isSleeper,express, breakfast, lunch, dinner, capacity, days, softSeat, hardSeat, hardSleeper, softSleeper;
 	private double price;
 	
 	
 	Train()
 	{
-		name="John Doe";
-		route=-1;
-		trainID=-999;
-		meals=false;
-		isSleeper=false;
-		express=false;
-		seatingOption="Hard";
-		sleeper="N/A";
-		mealOption="N/A";
-		price=0.00;
+		this.distance=-1;
+		this.trainID=-999;
+		this.isSleeper= 0;
+		this.express= 0;
+		this.breakfast= 0;
+		this.lunch= 0;
+		this.dinner= 0;
+		this.price=0.00;
 	}
+	
+//	Train(int distance, int trainID, int isSleeper, int isExpress, String seatingOption, String sleeper, int breakfast, int lunch, int dinner,double price){
+//		this.distance = distance;
+//		this.trainID = trainID;
+//		this.isSleeper = isSleeper;
+//		this.express = isExpress;
+//		this.seatingOption=seatingOption;
+//		this.sleeper=sleeper;
+//		this.breakfast= breakfast;
+//		this.lunch = lunch;
+//		this.dinner = dinner;
+//		this.price=price;
+//		
+//	}
 	
 	//-------------Getters----------------
 	
-	public String getName()
+	public int getDistance()
 	{
-		return this.name;
-	}
-	
-	public int getRoute()
-	{
-		return this.route;
+		return this.distance;
 	}
 	
 	public int getID()
@@ -42,34 +47,14 @@ public class Train
 		return this.trainID;
 	}
 	
-	public boolean hasMeals()
-	{
-		return this.meals;
-	}
-	
-	public boolean getIsSleeper()
+	public int getIsSleeper()
 	{
 		return this.isSleeper;
 	}
 	
-	public boolean getIsExpress()
+	public int getIsExpress()
 	{
 		return this.express;
-	}
-	
-	public String getSeatingOption()
-	{
-		return this.seatingOption;
-	}
-	
-	public String getSleeper()
-	{
-		return this.sleeper;
-	}
-	
-	public String getMealOptions()
-	{
-		return this.mealOption;
 	}
 	
 	public double getPrice()
@@ -77,16 +62,38 @@ public class Train
 		return this.price;
 	}
 	
-	//-------------Setters----------------
+	public int getDinner() {
+		return dinner;
+	}	
 	
-	public void setName(String name)
-	{
-		this.name=name;
+	public int getLunch() {
+		return lunch;
 	}
 	
-	public void setRoute(int route)
+	public int getBreakfast() {
+		return breakfast;
+	}	
+	
+	public String getTo() {
+		return to;
+	}	
+	
+	public String getFrom() {
+		return from;
+	}
+	
+	public int getCapacity() {
+		return capacity;
+	}	
+	
+	public int getDays() {
+		return days;
+	}
+	//-------------Setters----------------
+	
+	public void setDistance(int route)
 	{
-		this.route=route;
+		this.distance=route;
 	}
 	
 	public void setID(int trainID)
@@ -94,35 +101,76 @@ public class Train
 		this.trainID=trainID;
 	}
 	
-	public void setMeals(boolean meals)
-	{
-		this.meals=meals;
-	}
-	
-	public void setSleeper(boolean isSleeper)
+	public void setSleeper(int isSleeper)
 	{
 		this.isSleeper=isSleeper;
 	}
 	
-	public void setIsExpress(boolean express)
+	public void setIsExpress(int express)
 	{
 		this.express=express;
 	}
-	
-	public void setSeatingOption(String seatingOption)
-	{
-		this.seatingOption=seatingOption;
+
+	public void setDinner(int dinner) {
+		this.dinner = dinner;
+	}
+
+	public void setLunch(int lunch) {
+		this.lunch = lunch;
+	}
+
+	public void setBreakfast(int breakfast) {
+		this.breakfast = breakfast;
+	}
+
+	public void setTo(String destination) {
+		this.to = destination;
+	}
+
+	public void setFrom(String start) {
+		this.from = start;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public void setDays(int days) {
+		this.days = days;
+	}
+
+	public int getHardSeat() {
+		return hardSeat;
+	}
+
+	public void setHardSeat(int hardSeat) {
+		this.hardSeat = hardSeat;
+	}
+
+	public int getSoftSleeper() {
+		return softSleeper;
+	}
+
+	public void setSoftSleeper(int softSleeper) {
+		this.softSleeper = softSleeper;
+	}
+
+	public int getHardSleeper() {
+		return hardSleeper;
+	}
+
+	public void setHardSleeper(int hardSleeper) {
+		this.hardSleeper = hardSleeper;
+	}
+
+	public int getSoftSeat() {
+		return softSeat;
+	}
+
+	public void setSoftSeat(int softSeat) {
+		this.softSeat = softSeat;
 	}
 	
-	public void setSleeper(String sleeper)
-	{
-		this.sleeper=sleeper;
-	}
-	
-	public void setMealOptions(String mealOptions)
-	{
-		this.mealOption=mealOptions;
-	}
 	
 
 }
