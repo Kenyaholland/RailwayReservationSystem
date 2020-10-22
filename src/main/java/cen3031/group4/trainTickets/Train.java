@@ -5,22 +5,35 @@ public class Train
 
 	private String to, from;
 	private int distance;
-	private int trainID, isSleeper,express, breakfast, lunch, dinner, capacity, days, softSeat, hardSeat, hardSleeper, softSleeper;
+	private int trainID,express, breakfast, lunch, dinner, capacity, days, softSeat, hardSeat, hardSleeper, softSleeper;
 	private double price;
 	
 	
 	Train()
 	{
-		this.distance=-1;
 		this.trainID=-999;
-		this.isSleeper= 0;
+		this.from = "NULL";
+		this.to = "NULL";
 		this.express= 0;
+		this.distance=-1;
+		this.capacity = 0;
+		this.days = 0;
+		this.softSeat = 0;
+		this.hardSeat = 0;
+		this.softSleeper = 0;
+		this.hardSleeper = 0;
 		this.breakfast= 0;
 		this.lunch= 0;
 		this.dinner= 0;
 		this.price=0.00;
 	}
 	
+	public String toString() {
+		
+		return this.getID() + " " + this.getFrom() + " " + this.getTo() + " " + this.getIsExpress() + " " + this.getDistance() + " " + this.getCapacity() + " " +
+		this.getDays() + " " + this.getSoftSeat() + " " + this.getHardSeat() + " " + this.getSoftSleeper() + " " + this.getHardSleeper() + " " + this.getBreakfast() + " " +
+		this.getLunch() + " " + this.getDinner() + " " + this.getPrice();
+	}
 //	Train(int distance, int trainID, int isSleeper, int isExpress, String seatingOption, String sleeper, int breakfast, int lunch, int dinner,double price){
 //		this.distance = distance;
 //		this.trainID = trainID;
@@ -45,11 +58,6 @@ public class Train
 	public int getID()
 	{
 		return this.trainID;
-	}
-	
-	public int getIsSleeper()
-	{
-		return this.isSleeper;
 	}
 	
 	public int getIsExpress()
@@ -99,11 +107,6 @@ public class Train
 	public void setID(int trainID)
 	{
 		this.trainID=trainID;
-	}
-	
-	public void setSleeper(int isSleeper)
-	{
-		this.isSleeper=isSleeper;
 	}
 	
 	public void setIsExpress(int express)

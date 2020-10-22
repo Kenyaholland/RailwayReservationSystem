@@ -16,7 +16,7 @@ public class Main
 		
 		try{
 			
-			TrainReadin.ReadIn();
+//			ArrayList<Train> readIn = TrainReadin.ReadIn();
 			
 			TrainDB db = new TrainDB();
 			db.storeTrains();

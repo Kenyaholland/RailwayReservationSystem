@@ -2,15 +2,16 @@ package cen3031.group4.trainTickets;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TrainReadin {
 	
 	static String fileDir="src/main/java/cen3031/group4/trainTickets/Inventory.csv";
 	
-	public static void ReadIn() throws FileNotFoundException{
+	public static ArrayList<Train> ReadIn() throws FileNotFoundException{
 		
+		ArrayList <Train> trains = new ArrayList<Train>();
 
 		String stringLine;
 		Scanner sc = new Scanner(new File(fileDir)); 
@@ -33,9 +34,11 @@ public class TrainReadin {
 			newTrain.setBreakfast(Integer.parseInt(stringArray[11]));
 			newTrain.setLunch(Integer.parseInt(stringArray[12]));
 			newTrain.setDinner(Integer.parseInt(stringArray[13]));
-			
+			trains.add(newTrain);
+			System.out.println(newTrain.toString());
 		}
  
 		sc.close();  //closes the scanner  
+		return trains;
 		}  
 }
