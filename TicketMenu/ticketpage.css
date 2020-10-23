@@ -1,0 +1,12 @@
+#ticketpane{
+    -fx-background-image: url("main_background.jpg");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 900 506;
+	-fx-background-position: center center;
+}
+
+#title{
+    -fx-font-size: 25px;
+    
+    
+}
