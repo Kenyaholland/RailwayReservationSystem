@@ -34,19 +34,6 @@ public class Train
 		this.getDays() + " " + this.getSoftSeat() + " " + this.getHardSeat() + " " + this.getSoftSleeper() + " " + this.getHardSleeper() + " " + this.getBreakfast() + " " +
 		this.getLunch() + " " + this.getDinner() + " " + this.getPrice();
 	}
-//	Train(int distance, int trainID, int isSleeper, int isExpress, String seatingOption, String sleeper, int breakfast, int lunch, int dinner,double price){
-//		this.distance = distance;
-//		this.trainID = trainID;
-//		this.isSleeper = isSleeper;
-//		this.express = isExpress;
-//		this.seatingOption=seatingOption;
-//		this.sleeper=sleeper;
-//		this.breakfast= breakfast;
-//		this.lunch = lunch;
-//		this.dinner = dinner;
-//		this.price=price;
-//		
-//	}
 	
 	//-------------Getters----------------
 	
@@ -96,6 +83,22 @@ public class Train
 	
 	public int getDays() {
 		return days;
+	}	
+	
+	public int getHardSeat() {
+		return hardSeat;
+	}
+	
+	public int getSoftSleeper() {
+		return softSleeper;
+	}
+	
+	public int getHardSleeper() {
+		return hardSleeper;
+	}
+	
+	public int getSoftSeat() {
+		return softSeat;
 	}
 	//-------------Setters----------------
 	
@@ -142,32 +145,16 @@ public class Train
 		this.days = days;
 	}
 
-	public int getHardSeat() {
-		return hardSeat;
-	}
-
 	public void setHardSeat(int hardSeat) {
 		this.hardSeat = hardSeat;
-	}
-
-	public int getSoftSleeper() {
-		return softSleeper;
 	}
 
 	public void setSoftSleeper(int softSleeper) {
 		this.softSleeper = softSleeper;
 	}
 
-	public int getHardSleeper() {
-		return hardSleeper;
-	}
-
 	public void setHardSleeper(int hardSleeper) {
 		this.hardSleeper = hardSleeper;
-	}
-
-	public int getSoftSeat() {
-		return softSeat;
 	}
 
 	public void setSoftSeat(int softSeat) {

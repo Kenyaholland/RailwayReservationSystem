@@ -11,18 +11,6 @@ import java.util.ArrayList;
 public class TrainDB {
 //private ArrayList <Train> trains = new ArrayList<Train>();
 	
-	public TrainDB(int n) {
-		for(int i = 0; i < n; ++i) {
-			//trains.add(CarFactory.createRandomCar());
-		}
-	}
-	
-	public TrainDB() {
-		for(int i = 0; i < 10; ++i) {
-			//trains.add(CarFactory.createRandomCar());
-		}
-	}
-	
 	public void storeTrains() throws Exception {
 		SimpleDataSource.init();
 		Connection conn = SimpleDataSource.getConnection();
@@ -32,7 +20,7 @@ public class TrainDB {
 		String sqlInsert = "INSERT INTO Trains(trainID,starting, destination,express,distace,capacity,days,softSeat,hardSeat,softSleeper,hardSleeper,breakfast,lunch,dinner,price) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		stmt.execute("DROP TABLE Trains");
-		stmt.executeUpdate("Create Table Trains (trainID INTEGER,starting CHAR(50),destination CHAR(50),express INTEGER,distace INTEGER,capacity INTEGER,days INTEGER,softSeat INTEGER,hardSeat INTEGER,softSleeper INTEGER,hardSleeper INTEGER,breakfast INTEGER,lunch INTEGER,dinner INTEGER,price INTEGER)");
+		stmt.executeUpdate("CREATE TABLE Trains(trainID INTEGER,starting CHAR(50),destination CHAR(50),express INTEGER,distace INTEGER,capacity INTEGER,days INTEGER,softSeat INTEGER,hardSeat INTEGER,softSleeper INTEGER,hardSleeper INTEGER,breakfast INTEGER,lunch INTEGER,dinner INTEGER,price INTEGER)");
 
 		
 		try {
