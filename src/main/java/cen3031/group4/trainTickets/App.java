@@ -27,6 +27,8 @@ public class App extends Application {
 		try{
 			TrainDB db = new TrainDB();
 			db.createTables();
+			//db.printTable();
+			db.debugQuery("SELECT * FROM Trains WHERE starting='Gujranwala'");
 		}	
 		catch(Exception e)
 		{

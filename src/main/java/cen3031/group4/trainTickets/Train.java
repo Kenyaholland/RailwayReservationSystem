@@ -3,7 +3,7 @@ package cen3031.group4.trainTickets;
 public class Train
 {
 
-	private String to, from;
+	private String destination, starting;
 	private int distance;
 	private int trainID,express, breakfast, lunch, dinner, capacity, days, softSeat, hardSeat, hardSleeper, softSleeper;
 	private double price;
@@ -12,8 +12,8 @@ public class Train
 	Train()
 	{
 		this.trainID=-999;
-		this.from = "NULL";
-		this.to = "NULL";
+		this.starting = "NULL";
+		this.destination = "NULL";
 		this.express= 0;
 		this.distance=-1;
 		this.capacity = 0;
@@ -70,11 +70,11 @@ public class Train
 	}	
 	
 	public String getTo() {
-		return to;
+		return destination;
 	}	
 	
 	public String getFrom() {
-		return from;
+		return starting;
 	}
 	
 	public int getCapacity() {
@@ -131,11 +131,11 @@ public class Train
 	}
 
 	public void setTo(String destination) {
-		this.to = destination;
+		this.destination = destination;
 	}
 
 	public void setFrom(String start) {
-		this.from = start;
+		this.starting = start;
 	}
 
 	public void setCapacity(int capacity) {

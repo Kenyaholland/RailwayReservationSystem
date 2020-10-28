@@ -9,6 +9,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TrainDB {
 	
@@ -22,8 +23,11 @@ public class TrainDB {
 	    System.out.println("Checking database for table");
 	    
 	    DatabaseMetaData databaseMetadata = SimpleDataSource.getConnection().getMetaData();
-	    ResultSet resultSet = databaseMetadata.getTables(null, null, "Trains", null);
+	    ResultSet resultSet = databaseMetadata.getTables(null, "App" , "Trains", null);
+	    //System.out.println(trainList.get(0));
+	    //statement.execute("DROP TABLE Trains");
 	    
+	    //Checks if table exists in database, if not creates table from train objects pulled from inventory.csv
 	    if (!resultSet.next()) {
 	       System.out.println("TABLE ALREADY EXISTS");
 	    } else {
@@ -49,7 +53,7 @@ public class TrainDB {
 				
 				statement.execute(sqlCreate);
 				
-				String sqlInsert = "INSERT INTO Trains(trainID,starting, destination,express,distace,capacity,days,softSeat,hardSeat,softSleeper,hardSleeper,breakfast,lunch,dinner,price) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				String sqlInsert = "INSERT INTO Trains VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				PreparedStatement pstmt = conn.prepareStatement(sqlInsert);
 				for(int i = 0; i < trainList.size(); ++i) {
 						pstmt.setInt(1,trainList.get(i).getID());
@@ -78,7 +82,8 @@ public class TrainDB {
 	    
 		}
 	
-	public void processQuery(String sqlQuery) {
+	//Used for debugging only
+	public void debugQuery(String sqlQuery) {
 		Connection conn;
 		try {
 			conn = SimpleDataSource.getConnection();
@@ -148,6 +153,77 @@ public class TrainDB {
 		
 	}
 	
+	public void printTable() {
+		Connection conn;
+		String sqlQuery = ("SELECT * FROM Trains");
+		try {
+			conn = SimpleDataSource.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet result = stmt.executeQuery(sqlQuery);
+			ResultSetMetaData rsm = result.getMetaData();
+			int cols = rsm.getColumnCount();
+			while (result.next()) {
+				for (int i = 1; i <= cols; i++) {
+					switch (i){
+						case 1:
+							System.out.print("TrainID: ");
+							break;
+						case 2:
+							System.out.print("From: ");
+							break;
+						case 3:
+							System.out.print("Destination: ");
+							break;
+						case 4:
+							System.out.print("Is Express: ");
+							break;
+						case 5:
+							System.out.print("Distance: ");
+							break;
+						case 6:
+							System.out.print("Capacity: ");
+							break;
+						case 7:
+							System.out.print("Days: ");
+							break;
+						case 8:
+							System.out.print("Soft Seat: ");
+							break;
+						case 9:
+							System.out.print("Hard Seat: ");
+							break;
+						case 10:
+							System.out.print("Soft Sleeper: ");
+							break;
+						case 11:
+							System.out.print("Hard Sleeper: ");
+							break;
+						case 12:
+							System.out.print("Breakfast: ");
+							break;
+						case 13:
+							System.out.print("Lunch: ");
+							break;
+						case 14:
+							System.out.print("Dinner: ");
+							break;
+						case 15:
+							System.out.print("Price: ");
+							break;
+						
+					}
+		            System.out.print(result.getString(i) + " ");
+				}
+		        System.out.println("");
+			}
+			
+			System.out.println("======================================================================================================================================================");
+		} catch (SQLException e) {
+			System.out.println("Unable to query for such information.");
+		}
+	}
+	
+	//Returns train object based on specific query entered
 	public Train selectQuery(String sqlQuery) {
 		Connection conn;
 		Train foundTrain = new Train();
@@ -208,7 +284,6 @@ public class TrainDB {
 						
 					}
 				}
-		        System.out.println("");
 		        return foundTrain;
 			}
 		} catch (SQLException e) {

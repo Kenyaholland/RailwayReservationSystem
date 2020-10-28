@@ -9,6 +9,7 @@ public class TrainReadin {
 	
 	static String fileDir="src/main/java/cen3031/group4/trainTickets/Inventory.csv";
 	
+	//Creates train objects from each line of inventory sheet. Used for initial SQL table creation
 	public static ArrayList<Train> ReadIn() throws FileNotFoundException{
 		
 		ArrayList <Train> trains = new ArrayList<Train>();
@@ -35,7 +36,7 @@ public class TrainReadin {
 			newTrain.setLunch(Integer.parseInt(stringArray[12]));
 			newTrain.setDinner(Integer.parseInt(stringArray[13]));
 			trains.add(newTrain);
-			System.out.println(newTrain.toString());
+			//System.out.println(newTrain.toString());
 		}
  
 		sc.close();  //closes the scanner  
