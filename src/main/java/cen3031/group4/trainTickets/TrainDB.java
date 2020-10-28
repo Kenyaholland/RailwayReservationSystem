@@ -24,8 +24,6 @@ public class TrainDB {
 	    
 	    DatabaseMetaData databaseMetadata = SimpleDataSource.getConnection().getMetaData();
 	    ResultSet resultSet = databaseMetadata.getTables(null, "App" , "Trains", null);
-	    //System.out.println(trainList.get(0));
-	    //statement.execute("DROP TABLE Trains");
 	    
 	    //Checks if table exists in database, if not creates table from train objects pulled from inventory.csv
 	    if (!resultSet.next()) {
@@ -146,7 +144,8 @@ public class TrainDB {
 		        System.out.println("");
 			}
 			
-			System.out.println("======================================================================================================================================================");
+			System.out.println("======================================================================================================================================================" +
+					"=====================================================================================================================");
 		} catch (SQLException e) {
 			System.out.println("Unable to query for such information.");
 		}
@@ -217,23 +216,28 @@ public class TrainDB {
 		        System.out.println("");
 			}
 			
-			System.out.println("======================================================================================================================================================");
+			System.out.println("======================================================================================================================================================" +
+			"=====================================================================================================================");
 		} catch (SQLException e) {
 			System.out.println("Unable to query for such information.");
 		}
 	}
 	
-	//Returns train object based on specific query entered
-	public Train selectQuery(String sqlQuery) {
+	//Returns train object list based on specific query entered
+	public ArrayList<Train> selectQuery(String sqlQuery) {
 		Connection conn;
-		Train foundTrain = new Train();
+		ArrayList<Train> trainList = new ArrayList<Train>();
+		
 		try {
 			conn = SimpleDataSource.getConnection();
 			Statement stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery(sqlQuery);
 			ResultSetMetaData rsm = result.getMetaData();
 			int cols = rsm.getColumnCount();
+			
+			
 			while (result.next()) {
+				Train foundTrain = new Train();
 				for (int i = 1; i <= cols; i++) {
 					switch (i){
 						case 1:
@@ -284,12 +288,13 @@ public class TrainDB {
 						
 					}
 				}
-		        return foundTrain;
+		       trainList.add(foundTrain); 
 			}
 		} catch (SQLException e) {
 			System.out.println("Unable to query for such information.");
 		}
-		return foundTrain;
+		
+		return trainList;
 	}
 }
 

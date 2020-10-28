@@ -1,5 +1,8 @@
 package cen3031.group4.trainTickets;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -27,8 +30,10 @@ public class App extends Application {
 		try{
 			TrainDB db = new TrainDB();
 			db.createTables();
-			//db.printTable();
-			db.debugQuery("SELECT * FROM Trains WHERE starting='Gujranwala'");
+			db.printTable();
+			//db.debugQuery("SELECT * FROM Trains WHERE starting='Gujranwala'");
+			//ArrayList<Train> selectList = db.selectQuery("SELECT * FROM Trains WHERE starting='Gujranwala'");
+			//System.out.println(Arrays.toString(selectList.toArray()));
 		}	
 		catch(Exception e)
 		{
