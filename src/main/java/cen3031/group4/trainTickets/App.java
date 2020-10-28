@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.paint.Color;
 
 
 /**
@@ -24,7 +23,16 @@ public class App extends Application {
 	Scene mainScene, ticketScene, adminScene, ticketConfirmationScene;
 	
     public static void main(String[] args) {
-        launch(args);
+        
+		try{
+			TrainDB db = new TrainDB();
+			db.createTables();
+		}	
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		launch(args);
     }
 	
     @Override
