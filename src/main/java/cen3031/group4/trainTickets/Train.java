@@ -100,6 +100,7 @@ public class Train
 	public int getSoftSeat() {
 		return softSeat;
 	}
+	
 	//-------------Setters----------------
 	
 	public void setDistance(int route)
@@ -159,6 +160,10 @@ public class Train
 
 	public void setSoftSeat(int softSeat) {
 		this.softSeat = softSeat;
+	}
+	
+	public void setPrice(double price) {
+		this.price = price;
 	}
 	
 	

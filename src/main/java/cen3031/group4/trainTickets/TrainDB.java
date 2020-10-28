@@ -147,5 +147,74 @@ public class TrainDB {
 		}
 		
 	}
+	
+	public Train selectQuery(String sqlQuery) {
+		Connection conn;
+		Train foundTrain = new Train();
+		try {
+			conn = SimpleDataSource.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet result = stmt.executeQuery(sqlQuery);
+			ResultSetMetaData rsm = result.getMetaData();
+			int cols = rsm.getColumnCount();
+			while (result.next()) {
+				for (int i = 1; i <= cols; i++) {
+					switch (i){
+						case 1:
+							foundTrain.setID(result.getInt(i));
+							break;
+						case 2:
+							foundTrain.setFrom(result.getString(i));
+							break;
+						case 3:
+							foundTrain.setTo(result.getString(i));
+							break;
+						case 4:
+							foundTrain.setIsExpress(result.getInt(i));
+							break;
+						case 5:
+							foundTrain.setDistance(result.getInt(i));
+							break;
+						case 6:
+							foundTrain.setCapacity(result.getInt(i));
+							break;
+						case 7:
+							foundTrain.setDays(result.getInt(i));
+							break;
+						case 8:
+							foundTrain.setSoftSeat(result.getInt(i));
+							break;
+						case 9:
+							foundTrain.setHardSeat(result.getInt(i));
+							break;
+						case 10:
+							foundTrain.setSoftSleeper(result.getInt(i));
+							break;
+						case 11:
+							foundTrain.setHardSleeper(result.getInt(i));
+							break;
+						case 12:
+							foundTrain.setBreakfast(result.getInt(i));
+							break;
+						case 13:
+							foundTrain.setLunch(result.getInt(i));
+							break;
+						case 14:
+							foundTrain.setDinner(result.getInt(i));
+							break;
+						case 15:
+							foundTrain.setPrice(result.getDouble(i));
+							break;
+						
+					}
+				}
+		        System.out.println("");
+		        return foundTrain;
+			}
+		} catch (SQLException e) {
+			System.out.println("Unable to query for such information.");
+		}
+		return foundTrain;
+	}
 }
 
