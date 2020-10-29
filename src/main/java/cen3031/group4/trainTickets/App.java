@@ -31,11 +31,13 @@ public class App extends Application {
 	Scene mainScene, ticketScene, adminScene, ticketConfirmationScene;
 	static TrainDB db = new TrainDB();
 	ArrayList<String> destinationPoints = new ArrayList<String>();
+	ArrayList<String> seatOptions = new ArrayList<String>();
 	
     public static void main(String[] args) {
         
 		try{
 			db.createTables();
+			db.printTable();
 		}	
 		catch(Exception e)
 		{
@@ -122,6 +124,10 @@ public class App extends Application {
     public void updateDropDown(ComboBox<String> destinationPointDropDown) {
     	destinationPointDropDown.setItems(FXCollections.observableArrayList(destinationPoints));
     }
+    
+    public void updateSeatOptions(ComboBox<String> seatDropDown, ArrayList<String> seatOptions) {
+    	seatDropDown.setItems(FXCollections.observableArrayList(seatOptions));
+    }
     @SuppressWarnings("unchecked")
 	public void ticketPage(GridPane layoutTicket, Stage screen) {
    	 //title
@@ -136,6 +142,7 @@ public class App extends Application {
             	"Waddlesborough", "Bread Ponds City"};
        @SuppressWarnings("unchecked")
 		ComboBox startPointDropDown = new ComboBox(FXCollections.observableArrayList(startPoints));
+       startPointDropDown.setPromptText("Select Start");
        startPointDropDown.getSelectionModel().selectFirst();
        layoutTicket.add(startPointLabel, 0, 1);
        layoutTicket.add(startPointDropDown, 0, 2);
@@ -147,6 +154,7 @@ public class App extends Application {
        @SuppressWarnings("unchecked")
 		ComboBox destinationPointDropDown = new ComboBox(FXCollections.observableArrayList(destinationPoints));
        destinationPointDropDown.setItems(FXCollections.observableArrayList(destinationPoints));
+       destinationPointDropDown.setPromptText("Select Destination");
        destinationPointDropDown.getSelectionModel().selectFirst();
    
        layoutTicket.add(destinationPointLabel, 1, 1);
@@ -161,8 +169,6 @@ public class App extends Application {
 	    	   for(int i = 0; i < destinationTrains.size(); ++i) {
 	    		   	if(destinationTrains.get(i).getIsExpress() == 1) {
 	    		   		destinationPoints.add(destinationTrains.get(i).getID() + " " + destinationTrains.get(i).getTo() + "(Express)");
-	    		   		
-	    		   		//destinationPoints.add(destinationTrains.get(i).getTo());
 	    		   	}else {
 	    		   		destinationPoints.add(destinationTrains.get(i).getID() + " " + destinationTrains.get(i).getTo() + "(Standard)");
 	    		   		
@@ -189,14 +195,37 @@ public class App extends Application {
        layoutTicket.add(lunchCheckBox, 0, 5);
        layoutTicket.add(dinnerCheckBox, 0, 6);
        
+       //seat drop down menu
+       var seatLabel = new Label("Select Seat:");
+       ComboBox<String> seatDropDown = new ComboBox<String>(FXCollections.observableArrayList());
+       seatDropDown.setItems(FXCollections.observableArrayList(seatOptions));
+       seatDropDown.setPromptText("Seat Type");
+       seatDropDown.getSelectionModel().selectFirst();
+       layoutTicket.add(seatLabel, 1, 3);
+       layoutTicket.add(seatDropDown, 1, 4);
+       
        destinationPointDropDown.setOnAction(new EventHandler<ActionEvent>() {
     	   
     	   @Override public void handle(ActionEvent e) {
-    		   String startingSelection = startPointDropDown.getSelectionModel().getSelectedItem().toString();
+    		   seatOptions.clear();
+    		   updateSeatOptions(seatDropDown, seatOptions);
+    		   //TODO: Fix null error when a new starting point is selected and destination returns to null, causing a null access error for destination selection
 	    	   String destinationSelection = destinationPointDropDown.getSelectionModel().getSelectedItem().toString();
-	    	   int selectedTrainID = Integer.parseInt(destinationSelection.substring(0,3));
+	    	   int selectedTrainID = 0;
+	    	   
+	    	   //Resets check boxes in case the selected meals aren't offered on new selection
+	    	   breakfastCheckBox.setSelected(false);
+	    	   lunchCheckBox.setSelected(false);
+	    	   dinnerCheckBox.setSelected(false);
+	    	   
+	    	   if(!destinationSelection.isEmpty()) {
+	    		   selectedTrainID = Integer.parseInt(destinationSelection.substring(0,3));
+	    	   }else {
+	    		   selectedTrainID = 0;
+	    	   }
 	    	   
 	    	   ArrayList<Train> selectedTrainList = db.selectQuery("SELECT * FROM Trains WHERE trainID=" +selectedTrainID);
+	    	   
 	    	   
 	    	   if(selectedTrainList.get(0).getBreakfast() == 0) {
 	    		   breakfastCheckBox.setDisable(true);
@@ -214,17 +243,26 @@ public class App extends Application {
 	    		   dinnerCheckBox.setDisable(false);
 	    	   }
 	    	   
+	    	   if(selectedTrainList.get(0).getSoftSeat() != 0) {
+	    		   seatOptions.add("Soft Seat");
+	    	   }
+	    	   
+	    	   if(selectedTrainList.get(0).getHardSeat() != 0) {
+	    		   seatOptions.add("Hard Seat");
+	    	   }
+	    	   
+	    	   if(selectedTrainList.get(0).getSoftSleeper() != 0) {
+	    		   seatOptions.add("Soft Sleeper");
+	    	   }
+	    	   
+	    	   if(selectedTrainList.get(0).getHardSleeper() != 0) {
+	    		   seatOptions.add("Hard Sleeper");
+	    	   }
+	    	   updateSeatOptions(seatDropDown, seatOptions);
     	   }
        });
        
-       //seat drop down menu
-       var seatLabel = new Label("Select Seat:");
-       String seats[] = {"Soft Seat", "Hard Seat", "Soft Sleeper", "Hard Sleeper"};
-       @SuppressWarnings("unchecked")
-		ComboBox seatDropDown = new ComboBox(FXCollections.observableArrayList(seats));
-       seatDropDown.getSelectionModel().selectFirst();
-       layoutTicket.add(seatLabel, 1, 3);
-       layoutTicket.add(seatDropDown, 1, 4);
+       
        
        // return to main button
        Button returnToMainButton = new Button("Go back to Main Screen");
