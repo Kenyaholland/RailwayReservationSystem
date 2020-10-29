@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,16 +29,13 @@ public class App extends Application {
 
 	Stage window;
 	Scene mainScene, ticketScene, adminScene, ticketConfirmationScene;
+	static TrainDB db = new TrainDB();
+	ArrayList<String> destinationPoints = new ArrayList<String>();
 	
     public static void main(String[] args) {
         
 		try{
-			TrainDB db = new TrainDB();
 			db.createTables();
-			db.printTable();
-			//db.debugQuery("SELECT * FROM Trains WHERE starting='Gujranwala'");
-			//ArrayList<Train> selectList = db.selectQuery("SELECT * FROM Trains WHERE starting='Gujranwala'");
-			//System.out.println(Arrays.toString(selectList.toArray()));
 		}	
 		catch(Exception e)
 		{
@@ -117,8 +119,11 @@ public class App extends Application {
         window.setScene(mainScene);
         window.show();
     }
-    
-    public void ticketPage(GridPane layoutTicket, Stage screen) {
+    public void updateDropDown(ComboBox<String> destinationPointDropDown) {
+    	destinationPointDropDown.setItems(FXCollections.observableArrayList(destinationPoints));
+    }
+    @SuppressWarnings("unchecked")
+	public void ticketPage(GridPane layoutTicket, Stage screen) {
    	 //title
        var ticketLabel = new Label("Welcome to Ticket Booking");
        ticketLabel.setId("title");
@@ -127,7 +132,7 @@ public class App extends Application {
         
        //drop down for starting point
        var startPointLabel = new Label("Select Starting Point:");
-       String startPoints[] = {"Wagsville", "Gujranwala", "Flipperton", "New Wingsford", "Chesterdale",
+       String startPoints[] = {"Please Choose" ,"Wagsville", "Gujranwala", "Flipperton", "New Wingsford", "Chesterdale",
             	"Waddlesborough", "Bread Ponds City", "Billngton"};
        @SuppressWarnings("unchecked")
 		ComboBox startPointDropDown = new ComboBox(FXCollections.observableArrayList(startPoints));
@@ -137,15 +142,29 @@ public class App extends Application {
        
        //drop down for destination point
        var destinationPointLabel = new Label("Select Destination Point:");
-       String destinationPoints[] = {"Gujranwala", "Bread Ponds City", "Flipperton", "New Wingsford", "Chesterdale",
-           	"Waddlesborough", "Billington", "Owl", "Sparrow", "Cockatoo", "Pidgey",
-           	"Kiwi", "Heronwok", "Hoopoes", "Dodo", "Penguin", "Flamingo", "Moron", 
-           	"Peacock", "Dove", "Eagle", "Vulture", "Crane", "Stork", "Ostrich", "Goose", "Thrush"};
+       
+       
        @SuppressWarnings("unchecked")
 		ComboBox destinationPointDropDown = new ComboBox(FXCollections.observableArrayList(destinationPoints));
+       destinationPointDropDown.setItems(FXCollections.observableArrayList(destinationPoints));
        destinationPointDropDown.getSelectionModel().selectFirst();
+   
        layoutTicket.add(destinationPointLabel, 1, 1);
        layoutTicket.add(destinationPointDropDown, 1, 2);
+       
+       startPointDropDown.setOnAction(new EventHandler<ActionEvent>() {
+    	   
+    	   @Override public void handle(ActionEvent e) {
+    		   destinationPoints.clear();
+	    	   String startingSelection = startPointDropDown.getSelectionModel().getSelectedItem().toString();
+	    	   ArrayList<Train> destinationTrains = db.selectQuery("SELECT * FROM Trains WHERE starting='" + startingSelection + "'");
+	    	   for(int i = 0; i < destinationTrains.size(); ++i) {
+			    	 destinationPoints.add(destinationTrains.get(i).getTo());
+			      }
+	    	   updateDropDown(destinationPointDropDown);
+    	   }
+       });
+       
            
        //meal options check box
        var mealsLabel = new Label("Select Meal Options:");
