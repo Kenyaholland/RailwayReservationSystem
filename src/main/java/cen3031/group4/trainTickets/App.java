@@ -125,7 +125,8 @@ public class App extends Application {
     	seatDropDown.setItems(FXCollections.observableArrayList(seatOptions));
     }
 
-    public void ticketPage(GridPane layoutTicket, Stage screen) {
+    @SuppressWarnings("unchecked")
+	public void ticketPage(GridPane layoutTicket, Stage screen) {
         //title
 
        var ticketLabel = new Label("Welcome to Ticket Booking");
@@ -160,8 +161,8 @@ public class App extends Application {
        destinationPointDropDown.setPromptText("Select Destination");
        destinationPointDropDown.getSelectionModel().selectFirst();
    
-       layoutTicket.add(destinationPointLabel, 1, 1);
-       layoutTicket.add(destinationPointDropDown, 1, 2);
+       layoutTicket.add(destinationPointLabel, 1, 2);
+       layoutTicket.add(destinationPointDropDown, 1, 3);
        
        startPointDropDown.setOnAction(new EventHandler<ActionEvent>() {
     	   
@@ -194,31 +195,19 @@ public class App extends Application {
        lunchCheckBox.setSelected(false);
        dinnerCheckBox.setSelected(false);
        
-       layoutTicket.add(breakfastCheckBox, 0, 4);
-       layoutTicket.add(lunchCheckBox, 0, 5);
-       layoutTicket.add(dinnerCheckBox, 0, 6);
-
-       CheckBox breakfast = new CheckBox("Breakfast");
-       breakfast.setSelected(false);
-       layoutTicket.add(breakfast, 0, 5);
-       
-       CheckBox lunch = new CheckBox("Lunch");
-       lunch.setSelected(false);
-       layoutTicket.add(lunch, 0, 6);
-       
-       CheckBox dinner = new CheckBox("Dinner");
-       dinner.setSelected(false);
-       layoutTicket.add(dinner, 0, 7);
+       layoutTicket.add(breakfastCheckBox, 0, 5);
+       layoutTicket.add(lunchCheckBox, 0, 6);
+       layoutTicket.add(dinnerCheckBox, 0, 7);
        
        
-       standardCheckBox.setOnAction(e -> {
-           if(standardCheckBox.isSelected()) {
-               expressCheckBox.setSelected(false);
-           }else {
-               expressCheckBox.setSelected(true);
-           }
-           
-       });
+//       standardCheckBox.setOnAction(e -> {
+//           if(standardCheckBox.isSelected()) {
+//               expressCheckBox.setSelected(false);
+//           }else {
+//               expressCheckBox.setSelected(true);
+//           }
+//           
+//       });
   
        //seat drop down menu
        var seatLabel = new Label("Select Seat:");
@@ -226,8 +215,8 @@ public class App extends Application {
        seatDropDown.setItems(FXCollections.observableArrayList(seatOptions));
        seatDropDown.setPromptText("Seat Type");
        seatDropDown.getSelectionModel().selectFirst();
-       layoutTicket.add(seatLabel, 1, 3);
-       layoutTicket.add(seatDropDown, 1, 4);
+       layoutTicket.add(seatLabel, 1, 4);
+       layoutTicket.add(seatDropDown, 1, 5);
        
        destinationPointDropDown.setOnAction(new EventHandler<ActionEvent>() {
     	   
@@ -298,14 +287,14 @@ public class App extends Application {
        
        //send values to ticket confirmation page
        ticketConfirmationPage(layoutTicket, screen, bookTicketButton, name,
-               startPointDropDown, destinationPointDropDown, breakfast, lunch, dinner,
-               expressCheckBox, standardCheckBox, seatDropDown );
+               startPointDropDown, destinationPointDropDown, breakfastCheckBox, lunchCheckBox, dinnerCheckBox,
+               seatDropDown );
    }
     
     
     public void ticketConfirmationPage(GridPane layoutTicket, Stage screen, Button bookTicketButton, TextField name,
             ComboBox startPointDropDown, ComboBox destinationPointDropDown, CheckBox breakfast, CheckBox lunch, CheckBox dinner,
-            CheckBox expressCheckBox, CheckBox standardCheckBox, ComboBox seatDropDown) {
+            ComboBox seatDropDown) {
         
         //layout
         GridPane layoutTicketConfirmation = new GridPane();
@@ -382,12 +371,12 @@ public class App extends Application {
             }
             
             trainConfirmation.setText("Train type:   ");
-            if(expressCheckBox.isSelected()) {
-                trainConfirmation.setText(trainConfirmation.getText() + " " + expressCheckBox.getText().toUpperCase());
-            }
-            if(standardCheckBox.isSelected()) {
-                trainConfirmation.setText(trainConfirmation.getText() + " " + standardCheckBox.getText().toUpperCase());
-            }
+//            if(expressCheckBox.isSelected()) {
+//                trainConfirmation.setText(trainConfirmation.getText() + " " + expressCheckBox.getText().toUpperCase());
+//            }
+//            if(standardCheckBox.isSelected()) {
+//                trainConfirmation.setText(trainConfirmation.getText() + " " + standardCheckBox.getText().toUpperCase());
+//            }
             
             seatConfirmation.setText("Seat type:    " + seatDropDown.getValue().toString().toUpperCase());
             priceConfirmation.setText("Price:    ");
