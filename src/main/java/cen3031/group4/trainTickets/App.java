@@ -36,6 +36,7 @@ public class App extends Application {
 	Stage window;
 	Scene mainScene, ticketScene, adminScene, ticketConfirmationScene;
 	static TrainDB db = new TrainDB();
+	Train selectedTrain;
 	ArrayList<String> destinationPoints = new ArrayList<String>();
 	ArrayList<String> seatOptions = new ArrayList<String>();
 	
@@ -198,16 +199,6 @@ public class App extends Application {
        layoutTicket.add(breakfastCheckBox, 0, 5);
        layoutTicket.add(lunchCheckBox, 0, 6);
        layoutTicket.add(dinnerCheckBox, 0, 7);
-       
-       
-//       standardCheckBox.setOnAction(e -> {
-//           if(standardCheckBox.isSelected()) {
-//               expressCheckBox.setSelected(false);
-//           }else {
-//               expressCheckBox.setSelected(true);
-//           }
-//           
-//       });
   
        //seat drop down menu
        var seatLabel = new Label("Select Seat:");
@@ -238,38 +229,38 @@ public class App extends Application {
 	    		   selectedTrainID = 0;
 	    	   }
 	    	   
-	    	   ArrayList<Train> selectedTrainList = db.selectQuery("SELECT * FROM Trains WHERE trainID=" +selectedTrainID);
+	    	   ArrayList<Train> selectedTrainList = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + selectedTrainID);
+	    	   selectedTrain = selectedTrainList.get(0);
 	    	   
-	    	   
-	    	   if(selectedTrainList.get(0).getBreakfast() == 0) {
+	    	   if(selectedTrain.getBreakfast() == 0) {
 	    		   breakfastCheckBox.setDisable(true);
 	    	   }else {
 	    		   breakfastCheckBox.setDisable(false);
 	    	   }
-	    	   if(selectedTrainList.get(0).getLunch() == 0) {
+	    	   if(selectedTrain.getLunch() == 0) {
 	    		   lunchCheckBox.setDisable(true);
 	    	   }else {
 	    		   lunchCheckBox.setDisable(false);
 	    	   }
-	    	   if(selectedTrainList.get(0).getDinner() == 0) {
+	    	   if(selectedTrain.getDinner() == 0) {
 	    		   dinnerCheckBox.setDisable(true);
 	    	   }else {
 	    		   dinnerCheckBox.setDisable(false);
 	    	   }
 	    	   
-	    	   if(selectedTrainList.get(0).getSoftSeat() != 0) {
+	    	   if(selectedTrain.getSoftSeat() != 0) {
 	    		   seatOptions.add("Soft Seat");
 	    	   }
 	    	   
-	    	   if(selectedTrainList.get(0).getHardSeat() != 0) {
+	    	   if(selectedTrain.getHardSeat() != 0) {
 	    		   seatOptions.add("Hard Seat");
 	    	   }
 	    	   
-	    	   if(selectedTrainList.get(0).getSoftSleeper() != 0) {
+	    	   if(selectedTrain.getSoftSleeper() != 0) {
 	    		   seatOptions.add("Soft Sleeper");
 	    	   }
 	    	   
-	    	   if(selectedTrainList.get(0).getHardSleeper() != 0) {
+	    	   if(selectedTrain.getHardSleeper() != 0) {
 	    		   seatOptions.add("Hard Sleeper");
 	    	   }
 	    	   updateSeatOptions(seatDropDown, seatOptions);
@@ -314,24 +305,31 @@ public class App extends Application {
         Label startPointConfirmation = new Label();
         Label destinationPointConfirmation = new Label();
         Label mealConfirmation = new Label();
-        Label trainConfirmation = new Label();
         Label seatConfirmation = new Label();
         Label priceConfirmation = new Label();
+        Label daysToTravel = new Label();
         Label datePurchasedConfirmation = new Label();
         
         //setting alignment
-        GridPane.setHalignment(nameConfirmation, HPos.CENTER);
-        GridPane.setHalignment(startPointConfirmation, HPos.CENTER);
-        GridPane.setHalignment(destinationPointConfirmation, HPos.CENTER);
-        GridPane.setHalignment(mealConfirmation, HPos.CENTER);
-        GridPane.setHalignment(trainConfirmation, HPos.CENTER);
-        GridPane.setHalignment(seatConfirmation, HPos.CENTER);
-        GridPane.setHalignment(priceConfirmation, HPos.CENTER);
-        GridPane.setHalignment(datePurchasedConfirmation, HPos.CENTER);
+        GridPane.setHalignment(nameConfirmation, HPos.LEFT);
+        GridPane.setHalignment(startPointConfirmation, HPos.LEFT);
+        GridPane.setHalignment(destinationPointConfirmation, HPos.LEFT);
+        GridPane.setHalignment(mealConfirmation, HPos.LEFT);
+        GridPane.setHalignment(seatConfirmation, HPos.LEFT);
+        GridPane.setHalignment(priceConfirmation, HPos.LEFT);
+        GridPane.setHalignment(daysToTravel, HPos.LEFT);
+        GridPane.setHalignment(datePurchasedConfirmation, HPos.LEFT);
          
-        Button returnToMainButton3 = new Button("Go back to main screen");
-        GridPane.setHalignment(returnToMainButton3, HPos.CENTER);
-        returnToMainButton3.setOnAction(e -> screen.setScene(mainScene));
+        Button returnToMainButton3 = new Button("Confirm and Return to Main Screen");
+        GridPane.setHalignment(returnToMainButton3, HPos.LEFT);
+        returnToMainButton3.setOnAction(e -> {
+        	screen.setScene(mainScene);
+        	//TO-DO DECREMENT TRAIN CAPACITY WHEN USER RETURNS TO MAIN SCREEN
+        });
+        
+        Button returnToTicketPage = new Button("Go Back to Ticket Page");
+        GridPane.setHalignment(returnToTicketPage, HPos.LEFT);
+        returnToTicketPage.setOnAction(e -> screen.setScene(ticketScene));
         
         //adding labels and buttons to layout
         layoutTicketConfirmation.add(ticketConfirmationLabel, 0, 0);
@@ -339,11 +337,12 @@ public class App extends Application {
         layoutTicketConfirmation.add(startPointConfirmation, 0, 2);
         layoutTicketConfirmation.add(destinationPointConfirmation, 0, 3);
         layoutTicketConfirmation.add(mealConfirmation, 0, 4);
-        layoutTicketConfirmation.add(trainConfirmation, 0, 5);
-        layoutTicketConfirmation.add(seatConfirmation, 0, 6);
-        layoutTicketConfirmation.add(priceConfirmation, 0, 7);
+        layoutTicketConfirmation.add(seatConfirmation, 0, 5);
+        layoutTicketConfirmation.add(priceConfirmation, 0, 6);
+        layoutTicketConfirmation.add(daysToTravel, 0, 7);
         layoutTicketConfirmation.add(datePurchasedConfirmation, 0, 8);
         layoutTicketConfirmation.add(returnToMainButton3, 0, 9);
+        layoutTicketConfirmation.add(returnToTicketPage, 1, 9);
                
         layoutTicketConfirmation.setAlignment(Pos.CENTER);
          
@@ -370,16 +369,11 @@ public class App extends Application {
                 mealConfirmation.setText(mealConfirmation.getText() + " NONE");
             }
             
-            trainConfirmation.setText("Train type:   ");
-//            if(expressCheckBox.isSelected()) {
-//                trainConfirmation.setText(trainConfirmation.getText() + " " + expressCheckBox.getText().toUpperCase());
-//            }
-//            if(standardCheckBox.isSelected()) {
-//                trainConfirmation.setText(trainConfirmation.getText() + " " + standardCheckBox.getText().toUpperCase());
-//            }
-            
             seatConfirmation.setText("Seat type:    " + seatDropDown.getValue().toString().toUpperCase());
-            priceConfirmation.setText("Price:    ");
+            double totalPrice = CalculateTicketPrice(breakfast, lunch, dinner, seatDropDown);
+            priceConfirmation.setText("Price:    " + totalPrice);
+            
+            daysToTravel.setText("Travel Time:    " + selectedTrain.getDays() + " days");
             
             DateTimeFormatter date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             LocalDateTime now = LocalDateTime.now();
@@ -389,7 +383,50 @@ public class App extends Application {
             screen.setScene(ticketConfirmationScene);
             ticketConfirmationScene.getStylesheets().addAll(this.getClass().getResource("ticketpage.css").toExternalForm());
                 
-        });
-        
+        }); 
+    }
+    
+    public double CalculateTicketPrice(CheckBox breakfastSelection, CheckBox lunchSelection, CheckBox dinnerSelection,
+    		ComboBox seatDropDown) {
+    	double totalPrice = 14.99; //base price
+    	double pricePerKm = 0.20;
+    	
+    	//calculate standard or express train cost
+    	if(selectedTrain.getIsExpress() == 1) {
+    		totalPrice += 29.99;
+    	}
+    	else {
+    		totalPrice += 19.99;
+    	}
+    	
+    	//calculate distance to travel cost
+    	totalPrice += selectedTrain.getDistance() * pricePerKm;
+    	
+    	//calculate meals cost
+        if(breakfastSelection.isSelected()) {
+            totalPrice += 14.50;
+        }
+        if (lunchSelection.isSelected()) {
+        	totalPrice += 18.85;
+        }
+        if(dinnerSelection.isSelected()) {
+        	totalPrice += 24.99;
+        }
+    	
+    	//calculate selected seat cost
+    	if(seatDropDown.getValue().toString() == "Hard Seat") {
+    		totalPrice += 7.99;
+    	}
+    	else if(seatDropDown.getValue().toString() == "Soft Seat") {
+    		totalPrice += 12.99;
+    	}
+    	else if(seatDropDown.getValue().toString() == "Hard Sleeper") {
+    		totalPrice += 17.99;
+    	}
+    	else {
+    		totalPrice += 22.99;
+    	}
+    	
+    	return totalPrice;
     }
 }
