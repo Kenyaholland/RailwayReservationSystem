@@ -36,7 +36,7 @@ public class TrainReadin {
 			newTrain.setLunch(Integer.parseInt(stringArray[12]));
 			newTrain.setDinner(Integer.parseInt(stringArray[13]));
 			trains.add(newTrain);
-			//System.out.println(newTrain.toString());
+			
 		}
  
 		sc.close();  //closes the scanner  

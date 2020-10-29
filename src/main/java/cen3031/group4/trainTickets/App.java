@@ -159,7 +159,12 @@ public class App extends Application {
 	    	   String startingSelection = startPointDropDown.getSelectionModel().getSelectedItem().toString();
 	    	   ArrayList<Train> destinationTrains = db.selectQuery("SELECT * FROM Trains WHERE starting='" + startingSelection + "'");
 	    	   for(int i = 0; i < destinationTrains.size(); ++i) {
-			    	 destinationPoints.add(destinationTrains.get(i).getTo());
+	    		   	if(destinationTrains.get(i).getIsExpress() == 1) {
+	    		   		destinationPoints.add(destinationTrains.get(i).getID() + " " + destinationTrains.get(i).getTo() + "(Express)");
+	    		   	}else {
+	    		   		destinationPoints.add(destinationTrains.get(i).getID() + " " + destinationTrains.get(i).getTo());
+	    		   	}
+			    	 
 			      }
 	    	   updateDropDown(destinationPointDropDown);
     	   }
@@ -179,11 +184,11 @@ public class App extends Application {
        } 
        
        //express check box
-       var expressLabel = new Label("Select Express:");
-       CheckBox expressCheckBox = new CheckBox("Express");
-       expressCheckBox.setSelected(false);
-       layoutTicket.add(expressLabel, 1, 3);
-       layoutTicket.add(expressCheckBox, 1, 4);
+//       var expressLabel = new Label("Select Express:");
+//       CheckBox expressCheckBox = new CheckBox("Express");
+//       expressCheckBox.setSelected(false);
+//       layoutTicket.add(expressLabel, 1, 3);
+//       layoutTicket.add(expressCheckBox, 1, 4);
        
        //seat drop down menu
        var seatLabel = new Label("Select Seat:");
@@ -191,8 +196,8 @@ public class App extends Application {
        @SuppressWarnings("unchecked")
 		ComboBox seatDropDown = new ComboBox(FXCollections.observableArrayList(seats));
        seatDropDown.getSelectionModel().selectFirst();
-       layoutTicket.add(seatLabel, 2, 3);
-       layoutTicket.add(seatDropDown, 2, 4);
+       layoutTicket.add(seatLabel, 1, 3);
+       layoutTicket.add(seatDropDown, 1, 4);
        
        // return to main button
        Button returnToMainButton = new Button("Go back to Main Screen");

@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Oct 28 19:44:19 CDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0175-71d0-04aa-00000fa3d800 
+Wed Oct 28 19:55:02 CDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0175-71d9-d203-00000f903d50 
 on database directory C:\Users\morri\eclipse-workspace2\trainTickets\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@d041cf 
 Loaded from file:/C:/Users/morri/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
 java.vendor=Oracle Corporation
