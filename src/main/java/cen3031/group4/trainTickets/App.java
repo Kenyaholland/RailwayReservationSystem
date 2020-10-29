@@ -133,7 +133,7 @@ public class App extends Application {
        //drop down for starting point
        var startPointLabel = new Label("Select Starting Point:");
        String startPoints[] = {"Please Choose" ,"Wagsville", "Gujranwala", "Flipperton", "New Wingsford", "Chesterdale",
-            	"Waddlesborough", "Bread Ponds City", "Billngton"};
+            	"Waddlesborough", "Bread Ponds City"};
        @SuppressWarnings("unchecked")
 		ComboBox startPointDropDown = new ComboBox(FXCollections.observableArrayList(startPoints));
        startPointDropDown.getSelectionModel().selectFirst();
@@ -161,8 +161,11 @@ public class App extends Application {
 	    	   for(int i = 0; i < destinationTrains.size(); ++i) {
 	    		   	if(destinationTrains.get(i).getIsExpress() == 1) {
 	    		   		destinationPoints.add(destinationTrains.get(i).getID() + " " + destinationTrains.get(i).getTo() + "(Express)");
+	    		   		
+	    		   		//destinationPoints.add(destinationTrains.get(i).getTo());
 	    		   	}else {
-	    		   		destinationPoints.add(destinationTrains.get(i).getID() + " " + destinationTrains.get(i).getTo());
+	    		   		destinationPoints.add(destinationTrains.get(i).getID() + " " + destinationTrains.get(i).getTo() + "(Standard)");
+	    		   		
 	    		   	}
 			    	 
 			      }
@@ -170,25 +173,49 @@ public class App extends Application {
     	   }
        });
        
-           
        //meal options check box
        var mealsLabel = new Label("Select Meal Options:");
        layoutTicket.add(mealsLabel, 0, 3);
        
-       String meals[] = { "Breakfast", "Lunch", "Dinner" }; 
-       CheckBox mealsCheckBox = null;
-       for (int i = 0; i < meals.length; i++) {
-           mealsCheckBox = new CheckBox(meals[i]); 
-           mealsCheckBox.setSelected(false); 
-           layoutTicket.add(mealsCheckBox, 0, i+4); 
-       } 
+       CheckBox breakfastCheckBox = new CheckBox("Breakfast");
+       CheckBox lunchCheckBox = new CheckBox("Lunch");
+       CheckBox dinnerCheckBox = new CheckBox("Dinner");
        
-       //express check box
-//       var expressLabel = new Label("Select Express:");
-//       CheckBox expressCheckBox = new CheckBox("Express");
-//       expressCheckBox.setSelected(false);
-//       layoutTicket.add(expressLabel, 1, 3);
-//       layoutTicket.add(expressCheckBox, 1, 4);
+       breakfastCheckBox.setSelected(false);
+       lunchCheckBox.setSelected(false);
+       dinnerCheckBox.setSelected(false);
+       
+       layoutTicket.add(breakfastCheckBox, 0, 4);
+       layoutTicket.add(lunchCheckBox, 0, 5);
+       layoutTicket.add(dinnerCheckBox, 0, 6);
+       
+       destinationPointDropDown.setOnAction(new EventHandler<ActionEvent>() {
+    	   
+    	   @Override public void handle(ActionEvent e) {
+    		   String startingSelection = startPointDropDown.getSelectionModel().getSelectedItem().toString();
+	    	   String destinationSelection = destinationPointDropDown.getSelectionModel().getSelectedItem().toString();
+	    	   int selectedTrainID = Integer.parseInt(destinationSelection.substring(0,3));
+	    	   
+	    	   ArrayList<Train> selectedTrainList = db.selectQuery("SELECT * FROM Trains WHERE trainID=" +selectedTrainID);
+	    	   
+	    	   if(selectedTrainList.get(0).getBreakfast() == 0) {
+	    		   breakfastCheckBox.setDisable(true);
+	    	   }else {
+	    		   breakfastCheckBox.setDisable(false);
+	    	   }
+	    	   if(selectedTrainList.get(0).getLunch() == 0) {
+	    		   lunchCheckBox.setDisable(true);
+	    	   }else {
+	    		   lunchCheckBox.setDisable(false);
+	    	   }
+	    	   if(selectedTrainList.get(0).getDinner() == 0) {
+	    		   dinnerCheckBox.setDisable(true);
+	    	   }else {
+	    		   dinnerCheckBox.setDisable(false);
+	    	   }
+	    	   
+    	   }
+       });
        
        //seat drop down menu
        var seatLabel = new Label("Select Seat:");
