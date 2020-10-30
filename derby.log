@@ -1,11 +1,16 @@
 ----------------------------------------------------------------
-Thu Oct 29 00:24:48 CDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0175-72d0-d021-00000fab8e00 
-on database directory C:\Users\morri\eclipse-workspace2\trainTickets\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@d041cf 
-Loaded from file:/C:/Users/morri/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
-java.vendor=Oracle Corporation
-java.runtime.version=11.0.8+10-LTS
-user.dir=C:\Users\morri\eclipse-workspace2\trainTickets
+Thu Oct 29 11:12:26 CDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0175-7521-bb27-00000229bdf8 
+on database directory C:\Users\kenya\Documents\School\Software-Eng1\RailwaySystem\cen3031-80066-group4\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6dc84db9 
+Loaded from file:/C:/Users/kenya/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
+java.vendor=Eclipse OpenJ9
+java.runtime.version=11.0.5+10
+java.fullversion=11.0.5+10
+JRE 11 Windows 10 amd64-64-Bit 20191031_114 (JIT enabled, AOT enabled)
+OpenJ9   - 77c1cf708
+OMR      - 20db4fbc
+JCL      - 775c5eb03a based on jdk-11.0.5+10
+user.dir=C:\Users\kenya\Documents\School\Software-Eng1\RailwaySystem\cen3031-80066-group4
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
