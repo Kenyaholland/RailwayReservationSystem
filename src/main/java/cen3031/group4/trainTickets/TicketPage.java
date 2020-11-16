@@ -188,22 +188,31 @@ public class TicketPage {
 	    		   seatOptions.clear();
 	    		   updateSeatOptions(seatDD, seatOptions);
 	    		   //TODO: Fix null error when a new starting point is selected and destination returns to null, causing a null access error for destination selection
-		    	   String destinationSelection = destinationPointDD.getSelectionModel().getSelectedItem().toString();
-		    	   int selectedTrainID = 0;
+	    		   String destinationSelection = null;
+	    		   int selectedTrainID;
+		    	   try {
+		    		   destinationSelection = destinationPointDD.getSelectionModel().getSelectedItem().toString();
+		    		   selectedTrainID = 0;
+		    	   }catch(NullPointerException a) {
+		    		   System.out.println("Handling");
+		    	   }
 		    	   
 		    	   //Resets check boxes in case the selected meals aren't offered on new selection
 		    	   breakfastCheckBox.setSelected(false);
 		    	   lunchCheckBox.setSelected(false);
 		    	   dinnerCheckBox.setSelected(false);
 		    	   
-		    	   if(!destinationSelection.isEmpty()) {
+		    	   if(destinationSelection != null) {
 		    		   selectedTrainID = Integer.parseInt(destinationSelection.substring(0,3));
 		    	   }else {
 		    		   selectedTrainID = 0;
 		    	   }
 		    	   
 		    	   ArrayList<Train> selectedTrainList = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + selectedTrainID);
+		    	   
+		    	   if(!selectedTrainList.isEmpty()) {
 		    	   selectedTrain = selectedTrainList.get(0);
+		    	   }
 		    	   
 		    	   if(selectedTrain.getBreakfast() == 0) {
 		    		   breakfastCheckBox.setDisable(true);
