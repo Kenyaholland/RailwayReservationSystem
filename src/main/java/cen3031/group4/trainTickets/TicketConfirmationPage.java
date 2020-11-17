@@ -124,7 +124,7 @@ public class TicketConfirmationPage {
         GridPane.setHalignment(returnToMainButton3, HPos.LEFT);
         returnToMainButton3.setOnAction(e -> {
         	screen.setScene(mainScene);
-        	//TO-DO DECREMENT TRAIN CAPACITY WHEN USER RETURNS TO MAIN SCREEN
+        	//TODO DECREMENT TRAIN CAPACITY WHEN USER RETURNS TO MAIN SCREEN
         });
         
         returnToTicketPage = new Button("Go Back to Ticket Page");
@@ -174,10 +174,10 @@ public class TicketConfirmationPage {
             }
             
             seatConfirmation.setText("Seat type:    " + seatDropDown.getValue().toString().toUpperCase());
-            double totalPrice = CalculateTicketPrice(breakfast, lunch, dinner, seatDropDown);
-            priceConfirmation.setText("Price:    " + totalPrice);
-            
-            daysToTravel.setText("Travel Time:    " + selectedTrain.getDays() + " days");
+//            double totalPrice = CalculateTicketPrice(breakfast, lunch, dinner, seatDropDown);
+//            priceConfirmation.setText("Price:    " + totalPrice);
+//            
+//            daysToTravel.setText("Travel Time:    " + selectedTrain.getDays() + " days");
             
             DateTimeFormatter date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             LocalDateTime now = LocalDateTime.now();

@@ -87,7 +87,7 @@ public class TicketPage {
 	 public void createPassengerName() {
 	    	//text box for passenger to enter their name
 		       var nameLabel = new Label("Enter name:");
-		       TextField name = new TextField();
+		       name = new TextField();
 		       layoutTicket.add(nameLabel, 0, 1);
 		       layoutTicket.add(name, 1, 1);
 	    }
@@ -211,7 +211,8 @@ public class TicketPage {
 		    	   ArrayList<Train> selectedTrainList = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + selectedTrainID);
 		    	   
 		    	   if(!selectedTrainList.isEmpty()) {
-		    	   selectedTrain = selectedTrainList.get(0);
+		    		   selectedTrain = selectedTrainList.get(0);
+		    		   //System.out.println(selectedTrain.getFrom());
 		    	   }
 		    	   
 		    	   if(selectedTrain.getBreakfast() == 0) {
