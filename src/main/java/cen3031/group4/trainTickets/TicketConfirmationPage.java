@@ -30,7 +30,9 @@ public class TicketConfirmationPage {
     Scene ticketConfirmationScene;
     Scene mainScene;
     Scene ticketScene;
-    Train selectedTrain;
+    int selectedExpress;
+    int selectedDistance;
+    int selectedDays;
     GridPane layoutTicketConfirmation;
     
     Label nameConfirmation;
@@ -48,7 +50,7 @@ public class TicketConfirmationPage {
 
 	TicketConfirmationPage(GridPane layoutTicket, Stage screen, Button bookTicketButton, TextField name,
             ComboBox startPointDropDown, ComboBox destinationPointDropDown, CheckBox breakfast, CheckBox lunch, CheckBox dinner,
-            ComboBox seatDropDown, Scene ticketConfirmationScene, Scene mainScene, Scene ticketScene, Train selectedTrain){
+            ComboBox seatDropDown, Scene ticketConfirmationScene, Scene mainScene, Scene ticketScene, int selectedExpress, int selectedDistance, int selectedDays){
 		this.layoutTicket = layoutTicket;
 		this.screen = screen;
 		this.bookTicketButton = bookTicketButton;
@@ -62,7 +64,9 @@ public class TicketConfirmationPage {
 		this.ticketConfirmationScene = ticketConfirmationScene;
 		this.mainScene = mainScene;
 		this.ticketScene = ticketScene;
-		this.selectedTrain = selectedTrain;
+		this.selectedExpress = selectedExpress;
+		this.selectedDistance = selectedDistance;
+		this.selectedDays = selectedDays;
 		
 	}
 	
@@ -174,10 +178,10 @@ public class TicketConfirmationPage {
             }
             
             seatConfirmation.setText("Seat type:    " + seatDropDown.getValue().toString().toUpperCase());
-//            double totalPrice = CalculateTicketPrice(breakfast, lunch, dinner, seatDropDown);
-//            priceConfirmation.setText("Price:    " + totalPrice);
-//            
-//            daysToTravel.setText("Travel Time:    " + selectedTrain.getDays() + " days");
+            double totalPrice = CalculateTicketPrice(breakfast, lunch, dinner, seatDropDown);
+            priceConfirmation.setText("Price:    " + totalPrice);
+            
+            daysToTravel.setText("Travel Time:    " + selectedDays + " days");
             
             DateTimeFormatter date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             LocalDateTime now = LocalDateTime.now();
@@ -196,7 +200,7 @@ public class TicketConfirmationPage {
 	    	double pricePerKm = 0.20;
 	    	
 	    	//calculate standard or express train cost
-	    	if(selectedTrain.getIsExpress() == 1) {
+	    	if(selectedExpress == 1) {
 	    		totalPrice += 29.99;
 	    	}
 	    	else {
@@ -204,7 +208,7 @@ public class TicketConfirmationPage {
 	    	}
 	    	
 	    	//calculate distance to travel cost
-	    	totalPrice += selectedTrain.getDistance() * pricePerKm;
+	    	totalPrice += selectedDistance * pricePerKm;
 	    	
 	    	//calculate meals cost
 	        if(breakfastSelection.isSelected()) {

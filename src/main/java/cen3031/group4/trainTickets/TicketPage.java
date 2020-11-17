@@ -24,6 +24,9 @@ public class TicketPage {
 	ArrayList<String> destinationPoints;
 	ArrayList<String> seatOptions;
 	TrainDB db;
+	int selectedExpress;
+	int selectedDistance;
+	int selectedDays;
 	
 	Button bookTicketButton;
 	TextField name;
@@ -212,7 +215,9 @@ public class TicketPage {
 		    	   
 		    	   if(!selectedTrainList.isEmpty()) {
 		    		   selectedTrain = selectedTrainList.get(0);
-		    		   //System.out.println(selectedTrain.getFrom());
+		    		   selectedExpress = selectedTrain.getIsExpress();
+		    		   selectedDistance = selectedTrain.getDistance();
+		    		   selectedDays = selectedTrain.getDays();
 		    	   }
 		    	   
 		    	   if(selectedTrain.getBreakfast() == 0) {
@@ -262,10 +267,11 @@ public class TicketPage {
 	       layoutTicket.add(bookTicketButton, 1, 8);
 	 }
 	 
+	 
 	 public void makeTicketConfirmationPage(Scene ticketConfirmationScene, Scene mainScene, Scene ticketScene) {
 		 TicketConfirmationPage ticketConfirmationPage = new TicketConfirmationPage(layoutTicket, screen, bookTicketButton, name,
 	               startPointDD, destinationPointDD, breakfastCheckBox, lunchCheckBox, dinnerCheckBox,
-	               seatDD, ticketConfirmationScene, mainScene, ticketScene, selectedTrain);
+	               seatDD, ticketConfirmationScene, mainScene, ticketScene, selectedExpress, selectedDistance, selectedDays);
 	       ticketConfirmationPage.createTicketConfirmationPage();
 	 }
 }
