@@ -20,13 +20,10 @@ public class TicketPage {
 	GridPane layoutTicket;
 	Stage screen;
 	Scene mainScene;
-	Train selectedTrain;
+	static Train selectedTrain;
 	ArrayList<String> destinationPoints;
 	ArrayList<String> seatOptions;
 	TrainDB db;
-	int selectedExpress;
-	int selectedDistance;
-	int selectedDays;
 	
 	Button bookTicketButton;
 	TextField name;
@@ -190,7 +187,8 @@ public class TicketPage {
 	    	   @Override public void handle(ActionEvent e) {
 	    		   seatOptions.clear();
 	    		   updateSeatOptions(seatDD, seatOptions);
-	    		   //TODO: Fix null error when a new starting point is selected and destination returns to null, causing a null access error for destination selection
+	    		   
+	    		   //Error handling for when a passenger changes their startpoint the second time
 	    		   String destinationSelection = null;
 	    		   int selectedTrainID;
 		    	   try {
@@ -215,9 +213,6 @@ public class TicketPage {
 		    	   
 		    	   if(!selectedTrainList.isEmpty()) {
 		    		   selectedTrain = selectedTrainList.get(0);
-		    		   selectedExpress = selectedTrain.getIsExpress();
-		    		   selectedDistance = selectedTrain.getDistance();
-		    		   selectedDays = selectedTrain.getDays();
 		    	   }
 		    	   
 		    	   if(selectedTrain.getBreakfast() == 0) {
@@ -271,7 +266,7 @@ public class TicketPage {
 	 public void makeTicketConfirmationPage(Scene ticketConfirmationScene, Scene mainScene, Scene ticketScene) {
 		 TicketConfirmationPage ticketConfirmationPage = new TicketConfirmationPage(layoutTicket, screen, bookTicketButton, name,
 	               startPointDD, destinationPointDD, breakfastCheckBox, lunchCheckBox, dinnerCheckBox,
-	               seatDD, ticketConfirmationScene, mainScene, ticketScene, selectedExpress, selectedDistance, selectedDays);
+	               seatDD, ticketConfirmationScene, mainScene, ticketScene);
 	       ticketConfirmationPage.createTicketConfirmationPage();
 	 }
 }
