@@ -1,15 +1,20 @@
-#ticketpane{
+#adminpane{
     -fx-background-image: url("ticket_background.jpg");
 	-fx-background-repeat: stretch;   
 	-fx-background-size: 1366 845;
 	-fx-background-position: center center;
 }
-
-
-#title{
-    -fx-font-size: 25px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #B0C4DE;
+#backpane{
+    -fx-background-image: url("ticket_background.jpg");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 1366 845;
+	-fx-background-position: center center;
+}
+#trainpane{
+    -fx-background-image: url("ticket_background.jpg");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 1366 845;
+	-fx-background-position: center center;
 }
 
 .button {
