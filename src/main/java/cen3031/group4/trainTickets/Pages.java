@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -15,12 +16,14 @@ public class Pages {
 
 	Stage screen;
 	Stage window;
-	Scene mainScene, ticketScene, adminScene, ticketConfirmationScene;
+	Scene mainScene, ticketScene, adminScene, ticketConfirmationScene, backOfficeScene;
 	static TrainDB db;
 	Train selectedTrain;
 	ArrayList<String> destinationPoints;
 	ArrayList<String> seatOptions;
 	TicketPage ticketpage;
+	AdminPage adminPage;
+	BackOffice backOffice;
 	
 	Pages(Stage screen, TrainDB db, Scene mainScene, Stage window){
 		this.screen = screen;
@@ -83,18 +86,62 @@ public class Pages {
     }
     
     public void adminPage() {
-    	/* ------------- admin page ------------- */
-        var adminLabel = new Label("Welcome to Administration page");
+    	/* ------------- Administration page ------------- */
+        //var adminLabel = new Label("Welcome to Administration page");
         
-        Button returnToMainButton2 = new Button("Go back to main screen");
-        returnToMainButton2.setOnAction(e -> screen.setScene(mainScene));
+        BorderPane border = new BorderPane();
+        border.setPadding(new Insets(10,50,50,50));
         
-        VBox layoutAdmin = new VBox(20);
-        layoutAdmin.getChildren().addAll(adminLabel, returnToMainButton2);
-        layoutAdmin.setAlignment(Pos.CENTER);
-        adminScene = new Scene(layoutAdmin, 900, 500);
-        //adminScene.getStylesheets().addAll(this.getClass().getResource("adminmenu.css").toExternalForm());
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(5,5,5,5));
+        gridPane.setHgap(20);
+        gridPane.setVgap(20);
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setId("adminpane");
+        
+        //backOfficePage();
+        
+        //adminPage = new AdminPage(gridPane, screen, mainScene, backOfficeScene);
+        adminPage = new AdminPage(gridPane, screen, mainScene);
+        adminPage.createAdminPage();
+        
+        
+        adminScene = new Scene(gridPane, 1366, 845);
+        adminScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
     }
+    
+    
+    public void backOfficePage() {
+    	
+    	adminPage.makeBackOfficePage(backOfficeScene, screen, mainScene);
+    	//adminPage.lol();
+    	
+    	/*GridPane backPane = new GridPane();
+    	backPane.setId("backpane");
+    	backPane.setPadding(new Insets(5,5,5,5));
+    	backPane.setVgap(20);
+    	backPane.setHgap(20);
+    	backPane.setAlignment(Pos.CENTER);
+
+        GridPane TrainInfoPane = new GridPane();
+        TrainInfoPane.setId("trainpane");
+        TrainInfoPane.setPadding(new Insets(5,5,5,5));
+        TrainInfoPane.setVgap(20);
+        TrainInfoPane.setHgap(20);
+        TrainInfoPane.setAlignment(Pos.CENTER);
+        
+        backOffice = new BackOffice(backPane,screen,TrainInfoPane);
+        backOffice.createBackOffice();
+        
+        backOfficeScene = new Scene(backPane,1366, 845);
+        //this.backOfficeScene = new Scene(backPane,1366, 845);
+        backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
+        */
+        
+        /*backOffice = new BackOffice(backPane,screen,TrainInfoPane);
+        backOffice.createBackOffice(); */
+    }
+    
     
     public void displayMainScene() {
 		// display main scene 

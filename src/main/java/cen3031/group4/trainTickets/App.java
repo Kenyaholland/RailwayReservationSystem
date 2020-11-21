@@ -42,10 +42,14 @@ public class App extends Application {
         
         //ticket confirmation page
         pages.ticketConfirmationPage();
+        
+        
        
         // admin page
         pages.adminPage();
    
+        pages.backOfficePage();
+        
         // display main scene
         pages.displayMainScene();
         
