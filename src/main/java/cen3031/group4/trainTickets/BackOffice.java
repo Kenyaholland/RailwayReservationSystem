@@ -33,12 +33,12 @@ public class BackOffice {
 	public void createBackOffice() {
 		// TODO Auto-generated method stub
 		createTrainDisplay();
-		screen.setScene(trainInfoScene);
+		//screen.setScene(trainInfoScene);
 		
 	}
 	
 	public void createTrainDisplay() {
-		TextArea outputarea= new TextArea();
+		TextArea outputarea = new TextArea();
 	     
         Button returnToMainButton3 = new Button("Go back to main screen");
         
@@ -57,7 +57,7 @@ public class BackOffice {
   
        	 
        	 outputarea.appendText("Train ID: "+Integer.toString(destinationTrains.get(i).getID())+"\n--------------\n");
-       	 goToTrain.add(new Button("Edit Train "+String.valueOf(101+i)));
+       	 goToTrain.add(new Button("Edit Train "+ String.valueOf(101+i)));
        	 goToTrain.get(i).setId(Integer.toString(destinationTrains.get(i).getID()));
        	 vboxForButtons.getChildren().addAll(goToTrain.get(i));
        	 outputarea.appendText("Starting: "+ destinationTrains.get(i).getFrom()+"\n");
@@ -94,108 +94,60 @@ public class BackOffice {
 		 {
 		 case "101":
 			 trainId=0;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "102":
 			 trainId=1;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "103":
 			 trainId=2;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "104":
 			 trainId=3;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "105":
 			 trainId=4;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "106":
 			 trainId=5;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "107":
 			 trainId=6;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "108":
 			 trainId=7;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "109":
 			 trainId=8;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "110":
 			 trainId=9;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "111":
 			 trainId=10;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "112":
 			 trainId=11;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "113":
 			 trainId=12;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "114":
 			 trainId=13;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "115":
 			 trainId=14;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 case "116":
 			 trainId=15;
-			 trainInfoScene=new Scene(TrainInfoPane,900,500);
-	         trainInfoScene(TrainInfoPane,screen,trainId);
-			screen.setScene(trainInfoScene);
 			break;
 		 }
+		 trainInfoScene=new Scene(TrainInfoPane,1365, 845);
+         trainInfoScene(TrainInfoPane,screen,trainId);
+		screen.setScene(trainInfoScene);
     }
 	
 	public void trainInfoScene(GridPane TrainInfoPane, Stage screen,int trainId)
     {
-    	
-
-    	
     	
     	ArrayList<Train> destinationTrains = Pages.db.selectQuery("SELECT * FROM Trains");
     	

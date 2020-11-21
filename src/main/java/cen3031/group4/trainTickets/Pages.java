@@ -16,7 +16,7 @@ public class Pages {
 
 	Stage screen;
 	Stage window;
-	Scene mainScene, ticketScene, adminScene, ticketConfirmationScene;
+	Scene mainScene, ticketScene, adminScene, ticketConfirmationScene, backOfficeScene;
 	static TrainDB db;
 	Train selectedTrain;
 	ArrayList<String> destinationPoints;
@@ -99,32 +99,33 @@ public class Pages {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setId("adminpane");
         
-        adminPage = new AdminPage(gridPane, screen, mainScene);
+        backOfficePage();
+        
+        adminPage = new AdminPage(gridPane, screen, mainScene, backOfficeScene);
         adminPage.createAdminPage();
         
         
-        adminScene = new Scene(gridPane, 900, 500);
+        adminScene = new Scene(gridPane, 1366, 845);
         adminScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
     }
     
     public void backOfficePage() {
     	GridPane backPane = new GridPane();
-    	backPane.setId("pane");
+    	backPane.setId("backpane");
     	backPane.setPadding(new Insets(5,5,5,5));
     	backPane.setVgap(20);
     	backPane.setHgap(20);
     	backPane.setAlignment(Pos.CENTER);
-        
-    	
 
         GridPane TrainInfoPane = new GridPane();
-        TrainInfoPane.setId("pane");
+        TrainInfoPane.setId("trainpane");
         TrainInfoPane.setPadding(new Insets(5,5,5,5));
         TrainInfoPane.setVgap(20);
         TrainInfoPane.setHgap(20);
         TrainInfoPane.setAlignment(Pos.CENTER);
        
-        Scene backOfficeScene = new Scene(backPane,900,500);
+        this.backOfficeScene = new Scene(backPane,1366, 845);
+        backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
         
         backOffice = new BackOffice(backPane,screen,TrainInfoPane);
         backOffice.createBackOffice();

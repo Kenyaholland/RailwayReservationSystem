@@ -18,16 +18,18 @@ public class AdminPage {
 	GridPane layoutAdmin;
 	Stage screen;
 	Scene mainScene;
+	Scene backOfficeScene;
 	String username = "1";
 	String password = "1";
 	String checkUser, checkPw;
 	String id;
 	String cancel;
 	
-	AdminPage(GridPane layoutAdmin, Stage screen, Scene mainScene){
+	AdminPage(GridPane layoutAdmin, Stage screen, Scene mainScene, Scene backOfficeScene){
 		this.layoutAdmin = layoutAdmin;
 		this.screen = screen;
 		this.mainScene = mainScene;
+		this.backOfficeScene = backOfficeScene;
 	}
 
 	public void createAdminPage() {
@@ -43,27 +45,27 @@ public class AdminPage {
 		var adminLabel = new Label("Welcome to Administration");
 	       adminLabel.setId("title");
 	       adminLabel.setAlignment(Pos.CENTER);
-	       layoutAdmin.add(adminLabel, 0, 0, 2, 1);
+	       layoutAdmin.add(adminLabel, 0, 0);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void createLogin() {
-		Label Username = new Label("Username= group4");
+		Label Username = new Label("Username= 1");
         final TextField txtUserName = new TextField();
         
-        Label Password = new Label("Password= Ihateguis");
+        Label Password = new Label("Password= 1");
         final PasswordField pf = new PasswordField();
         
         Button Login = new Button("Login");
         final Label Message = new Label();
         Login.setId("btnLogin");
         
-        layoutAdmin.add(Username, 0, 0);
-        layoutAdmin.add(txtUserName, 1, 0);
-        layoutAdmin.add(Password, 0, 1);
-        layoutAdmin.add(pf, 1, 1);
-        layoutAdmin.add(Login, 2, 1);
-        layoutAdmin.add(Message, 1, 2);
+        layoutAdmin.add(Username, 0, 1);
+        layoutAdmin.add(txtUserName, 1, 1);
+        layoutAdmin.add(Password, 0, 2);
+        layoutAdmin.add(pf, 1, 2);
+        layoutAdmin.add(Login, 2, 2);
+        layoutAdmin.add(Message, 1, 3);
         
         GridPane Adminpane = new GridPane();
         Adminpane.setId("pane");
@@ -72,19 +74,12 @@ public class AdminPage {
         Adminpane.setHgap(20);
         Adminpane.setAlignment(Pos.CENTER);
         
-        
-        
-        Scene backOfficeScene = new Scene(Adminpane,900,500);
-        
         Login.setOnAction(new EventHandler() {
-            @SuppressWarnings("unused")
-			public void handle(ActionEvent event) {
-            }
 
 			@Override
 			public void handle(Event event) {
 				checkUser = txtUserName.getText().toString();
-             checkPw = pf.getText().toString();
+				checkPw = pf.getText().toString();
              if(checkUser.equals(username) && checkPw.equals(password)){
               screen.setScene(backOfficeScene);
              }
