@@ -113,7 +113,7 @@ public class Pages {
     
     public void backOfficePage() {
     	
-    	adminPage.makeBackOfficePage(backOfficeScene, screen);
+    	adminPage.makeBackOfficePage(backOfficeScene, screen, mainScene);
     	//adminPage.lol();
     	
     	/*GridPane backPane = new GridPane();

@@ -28,7 +28,7 @@ public class BackOffice {
 	GridPane TrainInfoPane;
 	String id;
 	String cancel;
-	Scene trainInfoScene, backOfficeScene;
+	Scene trainInfoScene, backOfficeScene ,mainScene;
 	Button Login;
 	String checkUser, checkPw;
 	final TextField txtUserName;
@@ -42,8 +42,12 @@ public class BackOffice {
 	ArrayList<Button> goToTrain;
 	VBox vboxForButtons;
 	
+	
+	;
+	
+	
 	BackOffice(Scene backOfficeScene, Stage screen, Button Login, String checkUser, String checkPw, final TextField txtUserName, 
-			final PasswordField pf, String username, String password, final Label Message) {
+			final PasswordField pf, String username, String password, final Label Message, Scene mainScene) {
 		//this.backPane = backPane;
 		this.screen = screen;
 		this.backOfficeScene = backOfficeScene;
@@ -55,6 +59,7 @@ public class BackOffice {
 		this.username = username;
 		this.password = password;
 		this.Message = Message;
+		this.mainScene = mainScene;
 		//this.TrainInfoPane = TrainInfoPane;
 	}
 
@@ -126,7 +131,7 @@ public class BackOffice {
         
         vboxForButtons = new VBox();
         
-        vboxForButtons.setAlignment(Pos.BASELINE_RIGHT);
+        vboxForButtons.setAlignment(Pos.CENTER_RIGHT);
         outputarea.setEditable(false);
         
         goToTrain = new ArrayList<>();
@@ -169,9 +174,12 @@ public class BackOffice {
         }
         
         //Add more here
-        backPane.add(outputarea, 0, 0);
-        backPane.add(vboxForButtons, 0, 1);
+        backPane.add(outputarea, 0, 1);
+        backPane.add(vboxForButtons, 1, 1);
         backPane.add(returnToMainButton3, 0, 2);
+        
+        
+        
         //TODO: add whatever is supposed to go on the back office page with backPane.add()
 	}
 	
@@ -322,7 +330,9 @@ public class BackOffice {
     		screen.setScene(backOfficeScene);
     	});
     	
-    	
+    	returnToMainButton3.setOnAction(e->{
+    		screen.setScene(mainScene);
+        });
     	
     	
     }

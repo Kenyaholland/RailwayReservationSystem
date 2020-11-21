@@ -116,9 +116,9 @@ public class AdminPage {
 	public void lol() {
 		System.out.println("lol");
 	}
-	public void makeBackOfficePage(Scene backOfficeScene, Stage screen) {
+	public void makeBackOfficePage(Scene backOfficeScene, Stage screen, Scene mainScene2) {
 		BackOffice backOffice = new BackOffice(backOfficeScene, screen, Login, checkUser, checkPw, txtUserName, 
-				pf, username, password, Message);
+				pf, username, password, Message, mainScene);
 		backOffice.createBackOffice();
 	}
 }
