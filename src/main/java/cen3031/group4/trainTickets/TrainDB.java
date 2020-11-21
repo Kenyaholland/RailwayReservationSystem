@@ -296,5 +296,9 @@ public class TrainDB {
 		
 		return trainList;
 	}
+	
+	public void updateQuery(Train editTrain, ArrayList<String> updatedInfo) {
+		
+	}
 }
 

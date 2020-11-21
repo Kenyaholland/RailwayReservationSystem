@@ -251,7 +251,7 @@ public class BackOffice {
     	 
     	Button submitChanges = new Button("Submit Changes");
     	
-    	Button cancelChanges = new Button("Cancel Changes");
+    	Button cancelChanges = new Button("Reset Changes");
     	 
     	 
     	 ArrayList<TextField> trainInfo = new ArrayList<TextField>();
@@ -260,13 +260,23 @@ public class BackOffice {
     	
     
     	trainLabels.add(new Label("Train ID: "));
-    	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getID())));
+    	//trainLabels.add(new Label(Integer.toString(destinationTrains.get(trainId).getID())));
+    	TextField thisTrainId = new TextField(Integer.toString(destinationTrains.get(trainId).getID()));
+    	thisTrainId.setEditable(false);
+    	thisTrainId.setDisable(true);
+    	trainInfo.add(thisTrainId);
     	
     	trainLabels.add(new Label("Starting: "));
-    	trainInfo.add(new TextField(destinationTrains.get(trainId).getFrom()));
+    	TextField thisStart = new TextField((destinationTrains.get(trainId).getFrom()));
+    	thisStart.setEditable(false);
+    	thisStart.setDisable(true);
+    	trainInfo.add(thisStart);
     	
     	trainLabels.add(new Label("Destination: "));
-    	trainInfo.add(new TextField(destinationTrains.get(trainId).getTo()));
+    	TextField thisDestination = new TextField((destinationTrains.get(trainId).getTo()));
+    	thisDestination.setEditable(false);
+    	thisDestination.setDisable(true);
+    	trainInfo.add(thisDestination);
     	
     	trainLabels.add(new Label("Distance: "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getDistance())));
@@ -303,12 +313,13 @@ public class BackOffice {
     	
     	
     	submitChanges.setOnAction(e->{
+    		
+    		ArrayList<String> updatedInfo = new ArrayList<String>();
     		for(int i=0;i<trainInfo.size();i++)
     		{
-    		System.out.println(trainInfo.get(i).getText());
-    		
+    			updatedInfo.add(trainInfo.get(i).getText());
     		}
-    		
+    		Pages.db.updateQuery(destinationTrains.get(trainId), updatedInfo);
     	});
     	
     	cancelChanges.setOnAction( e->{
