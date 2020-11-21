@@ -2,18 +2,24 @@ package cen3031.group4.trainTickets;
 
 import java.util.ArrayList;
 
+
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 
 public class BackOffice {
 
@@ -23,34 +29,109 @@ public class BackOffice {
 	String id;
 	String cancel;
 	Scene trainInfoScene, backOfficeScene;
+	Button Login;
+	String checkUser, checkPw;
+	final TextField txtUserName;
+	final PasswordField pf;
+	final Label Message;
+	String username;
+	String password;
+	TextArea outputarea;
+	Button returnToMainButton3;
+	ArrayList<Train> destinationTrains;
+	ArrayList<Button> goToTrain;
+	VBox vboxForButtons;
 	
-	BackOffice(GridPane backPane, Stage screen, GridPane TrainInfoPane) {
-		this.backPane = backPane;
+	BackOffice(Scene backOfficeScene, Stage screen, Button Login, String checkUser, String checkPw, final TextField txtUserName, 
+			final PasswordField pf, String username, String password, final Label Message) {
+		//this.backPane = backPane;
 		this.screen = screen;
-		this.TrainInfoPane = TrainInfoPane;
+		this.backOfficeScene = backOfficeScene;
+		this.Login = Login;
+		this.checkPw = checkPw;
+		this.checkUser = checkUser;
+		this.txtUserName = txtUserName;
+		this.pf = pf;
+		this.username = username;
+		this.password = password;
+		this.Message = Message;
+		//this.TrainInfoPane = TrainInfoPane;
 	}
 
 	public void createBackOffice() {
-		// TODO Auto-generated method stub
+		backPane = new GridPane();
+    	backPane.setId("backpane");
+    	backPane.setPadding(new Insets(5,5,5,5));
+    	backPane.setVgap(20);
+    	backPane.setHgap(20);
+    	backPane.setAlignment(Pos.CENTER);
+
+        TrainInfoPane = new GridPane();
+        TrainInfoPane.setId("trainpane");
+        TrainInfoPane.setPadding(new Insets(5,5,5,5));
+        TrainInfoPane.setVgap(20);
+        TrainInfoPane.setHgap(20);
+        TrainInfoPane.setAlignment(Pos.CENTER);
+        
+       // backOffice = new BackOffice(backPane,screen,TrainInfoPane);
+        //backOffice.createBackOffice();
+        
+        //backOfficeScene = new Scene(backPane,1366, 845);
+        //this.backOfficeScene = new Scene(backPane,1366, 845);
+        //backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
+        
 		createTrainDisplay();
+		loginEvent();
 		//screen.setScene(trainInfoScene);
 		
 	}
 	
-	public void createTrainDisplay() {
-		TextArea outputarea = new TextArea();
+	@SuppressWarnings("unchecked")
+	public void loginEvent() {
+		
+		backOfficeScene = new Scene(backPane,1366, 845);
+	    //backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
 	     
-        Button returnToMainButton3 = new Button("Go back to main screen");
+		Login.setOnAction(new EventHandler() {
+
+			@Override
+			public void handle(Event event) {
+				checkUser = txtUserName.getText().toString();
+				checkPw = pf.getText().toString();
+             if(checkUser.equals(username) && checkPw.equals(password)){
+            	 //makeBackOfficePage(back);
+              screen.setScene(backOfficeScene);
+              backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
+             }
+             else{
+              Message.setText("Either your password or username is wrong");
+              Message.setTextFill(Color.RED);
+             }
+             txtUserName.setText("");
+             pf.setText("");
+				
+			}
+            });
+		
+		 
+	        
+	}
+	
+	public void createTrainDisplay() {
+		outputarea = new TextArea();
+	     
+        returnToMainButton3 = new Button("Go back to main screen");
         
-        ArrayList<Train> destinationTrains = Pages.db.selectQuery("SELECT * FROM Trains"); 
+        destinationTrains = Pages.db.selectQuery("SELECT * FROM Trains"); 
         
-        VBox vboxForButtons = new VBox();
+        vboxForButtons = new VBox();
         
         vboxForButtons.setAlignment(Pos.BASELINE_RIGHT);
         outputarea.setEditable(false);
         
-        ArrayList<Button> goToTrain = new ArrayList<>();
+        goToTrain = new ArrayList<>();
         
+        //outputarea.appendText("its working yayyy");
         
         for(int i=0;i<destinationTrains.size();i++)
         {
@@ -86,6 +167,12 @@ public class BackOffice {
 
        
         }
+        
+        //Add more here
+        backPane.add(outputarea, 0, 0);
+        backPane.add(vboxForButtons, 0, 1);
+        backPane.add(returnToMainButton3, 0, 2);
+        //TODO: add whatever is supposed to go on the back office page with backPane.add()
 	}
 	
 	public void switchStmt(String id,Scene trainInfoScene,GridPane TrainInfoPane, int trainId,Stage screen)

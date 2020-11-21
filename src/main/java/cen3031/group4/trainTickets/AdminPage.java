@@ -14,22 +14,30 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+
 public class AdminPage {
 	GridPane layoutAdmin;
 	Stage screen;
 	Scene mainScene;
-	Scene backOfficeScene;
+	//Scene backOfficeScene;
 	String username = "1";
 	String password = "1";
 	String checkUser, checkPw;
 	String id;
 	String cancel;
+	Button Login;
+	final TextField txtUserName;
+	final PasswordField pf;
+	final Label Message;
 	
-	AdminPage(GridPane layoutAdmin, Stage screen, Scene mainScene, Scene backOfficeScene){
+	AdminPage(GridPane layoutAdmin, Stage screen, Scene mainScene){
 		this.layoutAdmin = layoutAdmin;
 		this.screen = screen;
 		this.mainScene = mainScene;
-		this.backOfficeScene = backOfficeScene;
+		txtUserName = new TextField();
+		pf = new PasswordField();
+		Message = new Label();
+		//this.backOfficeScene = backOfficeScene;
 	}
 
 	public void createAdminPage() {
@@ -51,13 +59,13 @@ public class AdminPage {
 	@SuppressWarnings("unchecked")
 	public void createLogin() {
 		Label Username = new Label("Username= 1");
-        final TextField txtUserName = new TextField();
+        //final TextField txtUserName = new TextField();
         
         Label Password = new Label("Password= 1");
-        final PasswordField pf = new PasswordField();
+        //final PasswordField pf = new PasswordField();
         
-        Button Login = new Button("Login");
-        final Label Message = new Label();
+        Login = new Button("Login");
+        //Message = new Label();
         Login.setId("btnLogin");
         
         layoutAdmin.add(Username, 0, 1);
@@ -74,13 +82,14 @@ public class AdminPage {
         Adminpane.setHgap(20);
         Adminpane.setAlignment(Pos.CENTER);
         
-        Login.setOnAction(new EventHandler() {
+      /*  Login.setOnAction(new EventHandler() {
 
 			@Override
 			public void handle(Event event) {
 				checkUser = txtUserName.getText().toString();
 				checkPw = pf.getText().toString();
              if(checkUser.equals(username) && checkPw.equals(password)){
+            	 makeBackOfficePage(back);
               screen.setScene(backOfficeScene);
              }
              else{
@@ -92,7 +101,9 @@ public class AdminPage {
 				
 			}
             });
+            */
 	}
+	
 	
 	public void createButtons() {	
 		
@@ -100,5 +111,14 @@ public class AdminPage {
         returnToMainButton2.setOnAction(e -> screen.setScene(mainScene));
         layoutAdmin.add(returnToMainButton2, 6, 6);
         
+	}
+	
+	public void lol() {
+		System.out.println("lol");
+	}
+	public void makeBackOfficePage(Scene backOfficeScene, Stage screen) {
+		BackOffice backOffice = new BackOffice(backOfficeScene, screen, Login, checkUser, checkPw, txtUserName, 
+				pf, username, password, Message);
+		backOffice.createBackOffice();
 	}
 }

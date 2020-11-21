@@ -99,9 +99,10 @@ public class Pages {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setId("adminpane");
         
-        backOfficePage();
+        //backOfficePage();
         
-        adminPage = new AdminPage(gridPane, screen, mainScene, backOfficeScene);
+        //adminPage = new AdminPage(gridPane, screen, mainScene, backOfficeScene);
+        adminPage = new AdminPage(gridPane, screen, mainScene);
         adminPage.createAdminPage();
         
         
@@ -109,8 +110,13 @@ public class Pages {
         adminScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
     }
     
+    
     public void backOfficePage() {
-    	GridPane backPane = new GridPane();
+    	
+    	adminPage.makeBackOfficePage(backOfficeScene, screen);
+    	//adminPage.lol();
+    	
+    	/*GridPane backPane = new GridPane();
     	backPane.setId("backpane");
     	backPane.setPadding(new Insets(5,5,5,5));
     	backPane.setVgap(20);
@@ -123,13 +129,19 @@ public class Pages {
         TrainInfoPane.setVgap(20);
         TrainInfoPane.setHgap(20);
         TrainInfoPane.setAlignment(Pos.CENTER);
-       
-        this.backOfficeScene = new Scene(backPane,1366, 845);
-        backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
         
         backOffice = new BackOffice(backPane,screen,TrainInfoPane);
         backOffice.createBackOffice();
+        
+        backOfficeScene = new Scene(backPane,1366, 845);
+        //this.backOfficeScene = new Scene(backPane,1366, 845);
+        backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
+        */
+        
+        /*backOffice = new BackOffice(backPane,screen,TrainInfoPane);
+        backOffice.createBackOffice(); */
     }
+    
     
     public void displayMainScene() {
 		// display main scene 
