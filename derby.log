@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Sat Nov 21 11:42:13 CST 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0175-ebe6-2f70-00000fbc4000 
-on database directory D:\SoftwareEng\willThisWork\cen3031-80066-group4\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7e0babb1 
-Loaded from file:/C:/Users/Lance/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
+Sat Nov 21 20:32:10 CST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0175-edcb-5f7f-000006a40e00 
+on database directory C:\Users\morri\git\cen3031-80066-group4\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@d041cf 
+Loaded from file:/C:/Users/morri/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=14.0.2+12-46
-user.dir=D:\SoftwareEng\willThisWork\cen3031-80066-group4
+java.runtime.version=11.0.8+10-LTS
+user.dir=C:\Users\morri\git\cen3031-80066-group4
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

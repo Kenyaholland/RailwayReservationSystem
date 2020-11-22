@@ -296,5 +296,30 @@ public class TrainDB {
 		
 		return trainList;
 	}
+	
+	//For use in back office to update train information
+	public void updateQuery(Train editTrain, ArrayList<String> updatedInfo) {
+		Connection conn;
+		
+		String sqlUpdate = "UPDATE Trains SET distance = " + Integer.parseInt(updatedInfo.get(3)) +
+				"         , capacity = " + Integer.parseInt(updatedInfo.get(4)) +
+				"         , days = " + Integer.parseInt(updatedInfo.get(5)) +
+				"         , hardSeat = " + Integer.parseInt(updatedInfo.get(6)) +
+				"         , softSeat = " + Integer.parseInt(updatedInfo.get(7)) +
+				"         , hardSleeper = " + Integer.parseInt(updatedInfo.get(8)) +
+				"         , softSleeper = " + Integer.parseInt(updatedInfo.get(9)) +
+				"        WHERE trainID=" + editTrain.getID();
+		
+		try {
+			conn = SimpleDataSource.getConnection();
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sqlUpdate);
+			
+		}catch(SQLException e) {
+			//e.printStackTrace();
+			System.out.println("Unable to update train information");
+		}
+		
+	}
 }
 

@@ -1,13 +1,16 @@
 package cen3031.group4.trainTickets;
 
 import java.util.ArrayList;
-
+import java.util.Optional;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
@@ -48,7 +51,6 @@ public class BackOffice {
 	
 	BackOffice(Scene backOfficeScene, Stage screen, Button Login, String checkUser, String checkPw, final TextField txtUserName, 
 			final PasswordField pf, String username, String password, final Label Message, Scene mainScene) {
-		//this.backPane = backPane;
 		this.screen = screen;
 		this.backOfficeScene = backOfficeScene;
 		this.Login = Login;
@@ -60,7 +62,7 @@ public class BackOffice {
 		this.password = password;
 		this.Message = Message;
 		this.mainScene = mainScene;
-		//this.TrainInfoPane = TrainInfoPane;
+		
 	}
 
 	public void createBackOffice() {
@@ -78,16 +80,8 @@ public class BackOffice {
         TrainInfoPane.setHgap(20);
         TrainInfoPane.setAlignment(Pos.CENTER);
         
-       // backOffice = new BackOffice(backPane,screen,TrainInfoPane);
-        //backOffice.createBackOffice();
-        
-        //backOfficeScene = new Scene(backPane,1366, 845);
-        //this.backOfficeScene = new Scene(backPane,1366, 845);
-        //backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
-        
 		createTrainDisplay();
 		loginEvent();
-		//screen.setScene(trainInfoScene);
 		
 	}
 	
@@ -95,7 +89,7 @@ public class BackOffice {
 	public void loginEvent() {
 		
 		backOfficeScene = new Scene(backPane,1366, 845);
-	    //backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
+	    
 	     
 		Login.setOnAction(new EventHandler() {
 
@@ -104,7 +98,6 @@ public class BackOffice {
 				checkUser = txtUserName.getText().toString();
 				checkPw = pf.getText().toString();
              if(checkUser.equals(username) && checkPw.equals(password)){
-            	 //makeBackOfficePage(back);
               screen.setScene(backOfficeScene);
               backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
              }
@@ -132,11 +125,10 @@ public class BackOffice {
         vboxForButtons = new VBox();
         
         vboxForButtons.setAlignment(Pos.CENTER_RIGHT);
+        vboxForButtons.setSpacing(4);
         outputarea.setEditable(false);
         
         goToTrain = new ArrayList<>();
-        
-        //outputarea.appendText("its working yayyy");
         
         for(int i=0;i<destinationTrains.size();i++)
         {
@@ -167,78 +159,24 @@ public class BackOffice {
        		 id =((Node) e.getSource()).getId();
        		 int trainId = 0;
        		 cancel=id;
-       		 switchStmt(id,trainInfoScene,TrainInfoPane,trainId,screen);
+       		 createInfoPage(id,trainInfoScene,TrainInfoPane,trainId,screen);
        	 });
 
        
         }
         
-        //Add more here
         backPane.add(outputarea, 0, 1);
         backPane.add(vboxForButtons, 1, 1);
         backPane.add(returnToMainButton3, 0, 2);
         
-        
-        
-        //TODO: add whatever is supposed to go on the back office page with backPane.add()
 	}
 	
-	public void switchStmt(String id,Scene trainInfoScene,GridPane TrainInfoPane, int trainId,Stage screen)
+	public void createInfoPage(String id,Scene trainInfoScene,GridPane TrainInfoPane, int trainId,Stage screen)
     {
-    	switch(id)
-		 {
-		 case "101":
-			 trainId=0;
-			break;
-		 case "102":
-			 trainId=1;
-			break;
-		 case "103":
-			 trainId=2;
-			break;
-		 case "104":
-			 trainId=3;
-			break;
-		 case "105":
-			 trainId=4;
-			break;
-		 case "106":
-			 trainId=5;
-			break;
-		 case "107":
-			 trainId=6;
-			break;
-		 case "108":
-			 trainId=7;
-			break;
-		 case "109":
-			 trainId=8;
-			break;
-		 case "110":
-			 trainId=9;
-			break;
-		 case "111":
-			 trainId=10;
-			break;
-		 case "112":
-			 trainId=11;
-			break;
-		 case "113":
-			 trainId=12;
-			break;
-		 case "114":
-			 trainId=13;
-			break;
-		 case "115":
-			 trainId=14;
-			break;
-		 case "116":
-			 trainId=15;
-			break;
-		 }
-		 trainInfoScene=new Scene(TrainInfoPane,1365, 845);
-         trainInfoScene(TrainInfoPane,screen,trainId);
-		screen.setScene(trainInfoScene);
+        trainId = Integer.parseInt(id) - 101;
+        trainInfoScene=new Scene(TrainInfoPane,1365, 845);
+        trainInfoScene(TrainInfoPane,screen,trainId);
+        screen.setScene(trainInfoScene);
     }
 	
 	public void trainInfoScene(GridPane TrainInfoPane, Stage screen,int trainId)
@@ -251,7 +189,7 @@ public class BackOffice {
     	 
     	Button submitChanges = new Button("Submit Changes");
     	
-    	Button cancelChanges = new Button("Cancel Changes");
+    	Button cancelChanges = new Button("Reset Changes");
     	 
     	 
     	 ArrayList<TextField> trainInfo = new ArrayList<TextField>();
@@ -260,13 +198,22 @@ public class BackOffice {
     	
     
     	trainLabels.add(new Label("Train ID: "));
-    	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getID())));
+    	TextField thisTrainId = new TextField(Integer.toString(destinationTrains.get(trainId).getID()));
+    	thisTrainId.setEditable(false);
+    	thisTrainId.setDisable(true);
+    	trainInfo.add(thisTrainId);
     	
     	trainLabels.add(new Label("Starting: "));
-    	trainInfo.add(new TextField(destinationTrains.get(trainId).getFrom()));
+    	TextField thisStart = new TextField((destinationTrains.get(trainId).getFrom()));
+    	thisStart.setEditable(false);
+    	thisStart.setDisable(true);
+    	trainInfo.add(thisStart);
     	
     	trainLabels.add(new Label("Destination: "));
-    	trainInfo.add(new TextField(destinationTrains.get(trainId).getTo()));
+    	TextField thisDestination = new TextField((destinationTrains.get(trainId).getTo()));
+    	thisDestination.setEditable(false);
+    	thisDestination.setDisable(true);
+    	trainInfo.add(thisDestination);
     	
     	trainLabels.add(new Label("Distance: "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getDistance())));
@@ -277,14 +224,17 @@ public class BackOffice {
     	trainLabels.add(new Label("Number of Days: "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getDays())));
     	
-    	trainLabels.add(new Label("Number of Hard Seats: "));
+    	trainLabels.add(new Label("Hard Seats offered? (0/1): "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getHardSeat())));
     	
-    	trainLabels.add(new Label("Number of Soft Seats: "));
+    	trainLabels.add(new Label("Soft Seats offered? (0/1): "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getSoftSeat())));
     	
-    	trainLabels.add(new Label("Number of Hard Sleepers: "));
+    	trainLabels.add(new Label("Hard Sleepers offered? (0/1): "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getHardSleeper())));
+    	
+    	trainLabels.add(new Label("Soft Sleepers offered? (0/1): "));
+    	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getSoftSleeper())));
     
     	
     		
@@ -297,18 +247,33 @@ public class BackOffice {
     	
     	
     	
-    	TrainInfoPane.add(submitChanges, 2, 9);
-    	TrainInfoPane.add(cancelChanges, 1, 9);
+    	TrainInfoPane.add(submitChanges, 2, 10);
+    	TrainInfoPane.add(cancelChanges, 1, 10);
     	
     	
     	
     	submitChanges.setOnAction(e->{
+    		
+    		ArrayList<String> updatedInfo = new ArrayList<String>();
+    		
     		for(int i=0;i<trainInfo.size();i++)
     		{
-    		System.out.println(trainInfo.get(i).getText());
-    		
+    			updatedInfo.add(trainInfo.get(i).getText());
     		}
     		
+    		Pages.db.updateQuery(destinationTrains.get(trainId), updatedInfo);
+    		
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+    		alert.setTitle("Train Change Confirmation");
+    		alert.setHeaderText("Train: " + destinationTrains.get(trainId).getID() + "'s information has been updated");
+    		alert.setContentText("Would you like to return to main menu?");
+
+    		Optional<ButtonType> result = alert.showAndWait();
+    		if (result.get() == ButtonType.OK){
+    		    screen.setScene(mainScene);
+    		} else {
+    		    screen.setScene(backOfficeScene);
+    		}
     	});
     	
     	cancelChanges.setOnAction( e->{
@@ -316,14 +281,14 @@ public class BackOffice {
     		Parent root = TrainInfoPane.getScene().getRoot();
     		TrainInfoPane.getScene().setRoot(new Region());
     		screen.setScene(backOfficeScene);
-    		switchStmt(cancel,trainInfoScene,TrainInfoPane,trainId,screen);
+    		createInfoPage(cancel,trainInfoScene,TrainInfoPane,trainId,screen);
     		
     	});
     	
     	
     	
 
-    	TrainInfoPane.add(returnToAdminPage, 3, 9);
+    	TrainInfoPane.add(returnToAdminPage, 3, 10);
     	returnToAdminPage.setOnAction(e -> {
     		Parent root = TrainInfoPane.getScene().getRoot();
     		TrainInfoPane.getScene().setRoot(new Region());

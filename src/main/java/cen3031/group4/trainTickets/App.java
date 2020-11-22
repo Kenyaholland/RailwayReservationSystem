@@ -2,6 +2,7 @@ package cen3031.group4.trainTickets;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -32,6 +33,7 @@ public class App extends Application {
  
         window = screen;
         screen.setTitle("Railway Reservation");
+        screen.getIcons().add(new Image(this.getClass().getResourceAsStream("trainIcon.png")));
         
         Pages pages = new Pages(screen, db, mainScene, window);
         // main page
