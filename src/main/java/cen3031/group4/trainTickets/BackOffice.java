@@ -80,16 +80,8 @@ public class BackOffice {
         TrainInfoPane.setHgap(20);
         TrainInfoPane.setAlignment(Pos.CENTER);
         
-       // backOffice = new BackOffice(backPane,screen,TrainInfoPane);
-        //backOffice.createBackOffice();
-        
-        //backOfficeScene = new Scene(backPane,1366, 845);
-        //this.backOfficeScene = new Scene(backPane,1366, 845);
-        //backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
-        
 		createTrainDisplay();
 		loginEvent();
-		//screen.setScene(trainInfoScene);
 		
 	}
 	
@@ -167,78 +159,24 @@ public class BackOffice {
        		 id =((Node) e.getSource()).getId();
        		 int trainId = 0;
        		 cancel=id;
-       		 switchStmt(id,trainInfoScene,TrainInfoPane,trainId,screen);
+       		 createInfoPage(id,trainInfoScene,TrainInfoPane,trainId,screen);
        	 });
 
        
         }
         
-        //Add more here
         backPane.add(outputarea, 0, 1);
         backPane.add(vboxForButtons, 1, 1);
         backPane.add(returnToMainButton3, 0, 2);
         
-        
-        
-        //TODO: add whatever is supposed to go on the back office page with backPane.add()
 	}
 	
-	public void switchStmt(String id,Scene trainInfoScene,GridPane TrainInfoPane, int trainId,Stage screen)
+	public void createInfoPage(String id,Scene trainInfoScene,GridPane TrainInfoPane, int trainId,Stage screen)
     {
-    	switch(id)
-		 {
-		 case "101":
-			 trainId=0;
-			break;
-		 case "102":
-			 trainId=1;
-			break;
-		 case "103":
-			 trainId=2;
-			break;
-		 case "104":
-			 trainId=3;
-			break;
-		 case "105":
-			 trainId=4;
-			break;
-		 case "106":
-			 trainId=5;
-			break;
-		 case "107":
-			 trainId=6;
-			break;
-		 case "108":
-			 trainId=7;
-			break;
-		 case "109":
-			 trainId=8;
-			break;
-		 case "110":
-			 trainId=9;
-			break;
-		 case "111":
-			 trainId=10;
-			break;
-		 case "112":
-			 trainId=11;
-			break;
-		 case "113":
-			 trainId=12;
-			break;
-		 case "114":
-			 trainId=13;
-			break;
-		 case "115":
-			 trainId=14;
-			break;
-		 case "116":
-			 trainId=15;
-			break;
-		 }
-		 trainInfoScene=new Scene(TrainInfoPane,1365, 845);
-         trainInfoScene(TrainInfoPane,screen,trainId);
-		screen.setScene(trainInfoScene);
+        trainId = Integer.parseInt(id) - 101;
+        trainInfoScene=new Scene(TrainInfoPane,1365, 845);
+        trainInfoScene(TrainInfoPane,screen,trainId);
+        screen.setScene(trainInfoScene);
     }
 	
 	public void trainInfoScene(GridPane TrainInfoPane, Stage screen,int trainId)
@@ -343,7 +281,7 @@ public class BackOffice {
     		Parent root = TrainInfoPane.getScene().getRoot();
     		TrainInfoPane.getScene().setRoot(new Region());
     		screen.setScene(backOfficeScene);
-    		switchStmt(cancel,trainInfoScene,TrainInfoPane,trainId,screen);
+    		createInfoPage(cancel,trainInfoScene,TrainInfoPane,trainId,screen);
     		
     	});
     	

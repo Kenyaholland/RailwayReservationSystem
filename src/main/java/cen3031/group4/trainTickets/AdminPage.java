@@ -57,13 +57,10 @@ public class AdminPage {
 	@SuppressWarnings("unchecked")
 	public void createLogin() {
 		Label Username = new Label("Username= 1");
-        //final TextField txtUserName = new TextField();
         
         Label Password = new Label("Password= 1");
-        //final PasswordField pf = new PasswordField();
         
         Login = new Button("Login");
-        //Message = new Label();
         Login.setId("btnLogin");
         
         layoutAdmin.add(Username, 0, 1);

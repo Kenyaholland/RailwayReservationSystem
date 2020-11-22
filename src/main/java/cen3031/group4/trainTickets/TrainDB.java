@@ -297,6 +297,7 @@ public class TrainDB {
 		return trainList;
 	}
 	
+	//For use in back office to update train information
 	public void updateQuery(Train editTrain, ArrayList<String> updatedInfo) {
 		Connection conn;
 		
