@@ -295,6 +295,10 @@ public class BackOffice {
     	
     	cancelChanges.setOnAction( e->{
     		System.out.println("Reset the scene");
+    		thisTrainId.clear();
+    		thisStart.clear();
+    		thisDestination.clear();
+    		trainLabels.clear();
     		Parent root = TrainInfoPane.getScene().getRoot();
     		TrainInfoPane.getScene().setRoot(new Region());
     		screen.setScene(backOfficeScene);
