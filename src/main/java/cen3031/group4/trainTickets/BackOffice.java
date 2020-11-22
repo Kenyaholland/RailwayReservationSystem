@@ -99,7 +99,7 @@ public class BackOffice {
 				checkPw = pf.getText().toString();
              if(checkUser.equals(username) && checkPw.equals(password)){
               screen.setScene(backOfficeScene);
-              backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
+              backOfficeScene.getStylesheets().addAll(this.getClass().getResource("backOffice.css").toExternalForm());
              }
              else{
               Message.setText("Either your password or username is wrong");
@@ -161,6 +161,10 @@ public class BackOffice {
        		 cancel=id;
        		 createInfoPage(id,trainInfoScene,TrainInfoPane,trainId,screen);
        	 });
+       	 
+       	returnToMainButton3.setOnAction(e->{
+    		screen.setScene(mainScene);
+        });
 
        
         }
