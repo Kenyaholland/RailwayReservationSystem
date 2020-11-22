@@ -220,14 +220,17 @@ public class BackOffice {
     	thisDestination.setDisable(true);
     	trainInfo.add(thisDestination);
     	
-    	trainLabels.add(new Label("Distance: "));
-    	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getDistance())));
-    	
     	trainLabels.add(new Label("Capacity: "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getCapacity())));
     	
-    	trainLabels.add(new Label("Number of Days: "));
-    	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getDays())));
+    	trainLabels.add(new Label("Breakfast offered? (0/1): "));
+    	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getBreakfast())));
+    	
+    	trainLabels.add(new Label("Lunch offered? (0/1): "));
+    	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getLunch())));
+    	
+    	trainLabels.add(new Label("Dinner offered? (0/1): "));
+    	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getDinner())));
     	
     	trainLabels.add(new Label("Hard Seats offered? (0/1): "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getHardSeat())));
@@ -252,8 +255,8 @@ public class BackOffice {
     	
     	
     	
-    	TrainInfoPane.add(submitChanges, 2, 10);
-    	TrainInfoPane.add(cancelChanges, 1, 10);
+    	TrainInfoPane.add(submitChanges, 2, 11);
+    	TrainInfoPane.add(cancelChanges, 1, 11);
     	
     	
     	
@@ -302,7 +305,7 @@ public class BackOffice {
     	
     	
 
-    	TrainInfoPane.add(returnToAdminPage, 3, 10);
+    	TrainInfoPane.add(returnToAdminPage, 3, 11);
     	returnToAdminPage.setOnAction(e -> {
     		thisTrainId.clear();
     		thisStart.clear();
@@ -323,4 +326,5 @@ public class BackOffice {
     	
     	
     }
+	
 }

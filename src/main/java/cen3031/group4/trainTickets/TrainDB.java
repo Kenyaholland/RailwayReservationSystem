@@ -301,13 +301,14 @@ public class TrainDB {
 	public void updateQuery(Train editTrain, ArrayList<String> updatedInfo) {
 		Connection conn;
 		
-		String sqlUpdate = "UPDATE Trains SET distance = " + Integer.parseInt(updatedInfo.get(3)) +
-				"         , capacity = " + Integer.parseInt(updatedInfo.get(4)) +
-				"         , days = " + Integer.parseInt(updatedInfo.get(5)) +
-				"         , hardSeat = " + Integer.parseInt(updatedInfo.get(6)) +
-				"         , softSeat = " + Integer.parseInt(updatedInfo.get(7)) +
-				"         , hardSleeper = " + Integer.parseInt(updatedInfo.get(8)) +
-				"         , softSleeper = " + Integer.parseInt(updatedInfo.get(9)) +
+		String sqlUpdate = "UPDATE Trains SET capacity = " + Integer.parseInt(updatedInfo.get(3)) +
+				"         , breakfast = " + Integer.parseInt(updatedInfo.get(4)) +
+				"         , lunch = " + Integer.parseInt(updatedInfo.get(5)) +
+				"         , dinner = " + Integer.parseInt(updatedInfo.get(6)) +
+				"         , hardSeat = " + Integer.parseInt(updatedInfo.get(7)) +
+				"         , softSeat = " + Integer.parseInt(updatedInfo.get(8)) +
+				"         , hardSleeper = " + Integer.parseInt(updatedInfo.get(9)) +
+				"         , softSleeper = " + Integer.parseInt(updatedInfo.get(10)) +
 				"        WHERE trainID=" + editTrain.getID();
 		
 		try {
