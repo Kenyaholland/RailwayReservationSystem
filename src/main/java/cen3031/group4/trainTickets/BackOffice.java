@@ -1,13 +1,16 @@
 package cen3031.group4.trainTickets;
 
 import java.util.ArrayList;
-
+import java.util.Optional;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
@@ -48,7 +51,6 @@ public class BackOffice {
 	
 	BackOffice(Scene backOfficeScene, Stage screen, Button Login, String checkUser, String checkPw, final TextField txtUserName, 
 			final PasswordField pf, String username, String password, final Label Message, Scene mainScene) {
-		//this.backPane = backPane;
 		this.screen = screen;
 		this.backOfficeScene = backOfficeScene;
 		this.Login = Login;
@@ -60,7 +62,7 @@ public class BackOffice {
 		this.password = password;
 		this.Message = Message;
 		this.mainScene = mainScene;
-		//this.TrainInfoPane = TrainInfoPane;
+		
 	}
 
 	public void createBackOffice() {
@@ -95,7 +97,7 @@ public class BackOffice {
 	public void loginEvent() {
 		
 		backOfficeScene = new Scene(backPane,1366, 845);
-	    //backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
+	    
 	     
 		Login.setOnAction(new EventHandler() {
 
@@ -104,7 +106,6 @@ public class BackOffice {
 				checkUser = txtUserName.getText().toString();
 				checkPw = pf.getText().toString();
              if(checkUser.equals(username) && checkPw.equals(password)){
-            	 //makeBackOfficePage(back);
               screen.setScene(backOfficeScene);
               backOfficeScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
              }
@@ -132,11 +133,10 @@ public class BackOffice {
         vboxForButtons = new VBox();
         
         vboxForButtons.setAlignment(Pos.CENTER_RIGHT);
+        vboxForButtons.setSpacing(4);
         outputarea.setEditable(false);
         
         goToTrain = new ArrayList<>();
-        
-        //outputarea.appendText("its working yayyy");
         
         for(int i=0;i<destinationTrains.size();i++)
         {
@@ -260,7 +260,6 @@ public class BackOffice {
     	
     
     	trainLabels.add(new Label("Train ID: "));
-    	//trainLabels.add(new Label(Integer.toString(destinationTrains.get(trainId).getID())));
     	TextField thisTrainId = new TextField(Integer.toString(destinationTrains.get(trainId).getID()));
     	thisTrainId.setEditable(false);
     	thisTrainId.setDisable(true);
@@ -287,14 +286,17 @@ public class BackOffice {
     	trainLabels.add(new Label("Number of Days: "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getDays())));
     	
-    	trainLabels.add(new Label("Number of Hard Seats: "));
+    	trainLabels.add(new Label("Hard Seats offered? (0/1): "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getHardSeat())));
     	
-    	trainLabels.add(new Label("Number of Soft Seats: "));
+    	trainLabels.add(new Label("Soft Seats offered? (0/1): "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getSoftSeat())));
     	
-    	trainLabels.add(new Label("Number of Hard Sleepers: "));
+    	trainLabels.add(new Label("Hard Sleepers offered? (0/1): "));
     	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getHardSleeper())));
+    	
+    	trainLabels.add(new Label("Soft Sleepers offered? (0/1): "));
+    	trainInfo.add(new TextField(Integer.toString(destinationTrains.get(trainId).getSoftSleeper())));
     
     	
     		
@@ -307,19 +309,33 @@ public class BackOffice {
     	
     	
     	
-    	TrainInfoPane.add(submitChanges, 2, 9);
-    	TrainInfoPane.add(cancelChanges, 1, 9);
+    	TrainInfoPane.add(submitChanges, 2, 10);
+    	TrainInfoPane.add(cancelChanges, 1, 10);
     	
     	
     	
     	submitChanges.setOnAction(e->{
     		
     		ArrayList<String> updatedInfo = new ArrayList<String>();
+    		
     		for(int i=0;i<trainInfo.size();i++)
     		{
     			updatedInfo.add(trainInfo.get(i).getText());
     		}
+    		
     		Pages.db.updateQuery(destinationTrains.get(trainId), updatedInfo);
+    		
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+    		alert.setTitle("Train Change Confirmation");
+    		alert.setHeaderText("Train: " + destinationTrains.get(trainId).getID() + "'s information has been updated");
+    		alert.setContentText("Would you like to return to main menu?");
+
+    		Optional<ButtonType> result = alert.showAndWait();
+    		if (result.get() == ButtonType.OK){
+    		    screen.setScene(mainScene);
+    		} else {
+    		    screen.setScene(backOfficeScene);
+    		}
     	});
     	
     	cancelChanges.setOnAction( e->{
@@ -334,7 +350,7 @@ public class BackOffice {
     	
     	
 
-    	TrainInfoPane.add(returnToAdminPage, 3, 9);
+    	TrainInfoPane.add(returnToAdminPage, 3, 10);
     	returnToAdminPage.setOnAction(e -> {
     		Parent root = TrainInfoPane.getScene().getRoot();
     		TrainInfoPane.getScene().setRoot(new Region());

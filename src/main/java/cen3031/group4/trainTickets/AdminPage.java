@@ -19,7 +19,6 @@ public class AdminPage {
 	GridPane layoutAdmin;
 	Stage screen;
 	Scene mainScene;
-	//Scene backOfficeScene;
 	String username = "1";
 	String password = "1";
 	String checkUser, checkPw;
@@ -37,7 +36,6 @@ public class AdminPage {
 		txtUserName = new TextField();
 		pf = new PasswordField();
 		Message = new Label();
-		//this.backOfficeScene = backOfficeScene;
 	}
 
 	public void createAdminPage() {
@@ -82,26 +80,6 @@ public class AdminPage {
         Adminpane.setHgap(20);
         Adminpane.setAlignment(Pos.CENTER);
         
-      /*  Login.setOnAction(new EventHandler() {
-
-			@Override
-			public void handle(Event event) {
-				checkUser = txtUserName.getText().toString();
-				checkPw = pf.getText().toString();
-             if(checkUser.equals(username) && checkPw.equals(password)){
-            	 makeBackOfficePage(back);
-              screen.setScene(backOfficeScene);
-             }
-             else{
-              Message.setText("Either your password or username is wrong");
-              Message.setTextFill(Color.RED);
-             }
-             txtUserName.setText("");
-             pf.setText("");
-				
-			}
-            });
-            */
 	}
 	
 	
@@ -112,10 +90,7 @@ public class AdminPage {
         layoutAdmin.add(returnToMainButton2, 6, 6);
         
 	}
-	
-	public void lol() {
-		System.out.println("lol");
-	}
+
 	public void makeBackOfficePage(Scene backOfficeScene, Stage screen, Scene mainScene2) {
 		BackOffice backOffice = new BackOffice(backOfficeScene, screen, Login, checkUser, checkPw, txtUserName, 
 				pf, username, password, Message, mainScene);
