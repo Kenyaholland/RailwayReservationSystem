@@ -268,6 +268,10 @@ public class BackOffice {
     		alert.getDialogPane().getStylesheets().addAll(this.getClass().getResource("alert.css").toExternalForm());
     		alert.setTitle("Train Change Confirmation");
     		alert.setHeaderText("Train: " + destinationTrains.get(trainId).getID() + "'s information has been updated");
+    		thisTrainId.clear();
+    		thisStart.clear();
+    		thisDestination.clear();
+    		trainLabels.clear();
     		alert.setContentText("Would you like to return to main menu?");
 
     		Optional<ButtonType> result = alert.showAndWait();
@@ -296,12 +300,20 @@ public class BackOffice {
 
     	TrainInfoPane.add(returnToAdminPage, 3, 10);
     	returnToAdminPage.setOnAction(e -> {
+    		thisTrainId.clear();
+    		thisStart.clear();
+    		thisDestination.clear();
+    		trainLabels.clear();
     		Parent root = TrainInfoPane.getScene().getRoot();
     		TrainInfoPane.getScene().setRoot(new Region());
     		screen.setScene(backOfficeScene);
     	});
     	
     	returnToMainButton3.setOnAction(e->{
+    		thisTrainId.clear();
+    		thisStart.clear();
+    		thisDestination.clear();
+    		trainLabels.clear();
     		screen.setScene(mainScene);
         });
     	
