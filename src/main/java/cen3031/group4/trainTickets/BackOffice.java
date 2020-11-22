@@ -177,6 +177,7 @@ public class BackOffice {
         trainInfoScene=new Scene(TrainInfoPane,1365, 845);
         trainInfoScene(TrainInfoPane,screen,trainId);
         screen.setScene(trainInfoScene);
+        trainInfoScene.getStylesheets().addAll(this.getClass().getResource("adminpage.css").toExternalForm());
     }
 	
 	public void trainInfoScene(GridPane TrainInfoPane, Stage screen,int trainId)
@@ -264,14 +265,19 @@ public class BackOffice {
     		Pages.db.updateQuery(destinationTrains.get(trainId), updatedInfo);
     		
     		Alert alert = new Alert(AlertType.CONFIRMATION);
+    		alert.getDialogPane().getStylesheets().addAll(this.getClass().getResource("alert.css").toExternalForm());
     		alert.setTitle("Train Change Confirmation");
     		alert.setHeaderText("Train: " + destinationTrains.get(trainId).getID() + "'s information has been updated");
     		alert.setContentText("Would you like to return to main menu?");
 
     		Optional<ButtonType> result = alert.showAndWait();
     		if (result.get() == ButtonType.OK){
-    		    screen.setScene(mainScene);
+    		    Parent root = TrainInfoPane.getScene().getRoot();
+        		TrainInfoPane.getScene().setRoot(new Region());
+        		screen.setScene(mainScene);
     		} else {
+    			Parent root = TrainInfoPane.getScene().getRoot();
+        		TrainInfoPane.getScene().setRoot(new Region());
     		    screen.setScene(backOfficeScene);
     		}
     	});
