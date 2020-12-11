@@ -55,9 +55,9 @@ public class TrainTest {
 		TrainDB db = new TrainDB();
 		int id = 101;
 		ArrayList<String> trainInfo = new ArrayList<String>();
+		ArrayList<Train> testTrain = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + 101);
 		
 		//Act
-		ArrayList<Train> testTrain = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + 101);
 		testTrain.get(0).setID(id);
 		testTrain.get(0).setBreakfast(0);
 		
