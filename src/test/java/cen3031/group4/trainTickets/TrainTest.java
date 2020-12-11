@@ -52,32 +52,32 @@ public class TrainTest {
 	@Test
 	public void testTrainUpdateDatabase() {
 		//Arrange
-		Train testTrain = new Train();
 		TrainDB db = new TrainDB();
+		int id = 101;
 		ArrayList<String> trainInfo = new ArrayList<String>();
 		
 		//Act
-		testTrain.setID(800);
-		testTrain.setBreakfast(1);
+		ArrayList<Train> testTrain = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + 101);
+		testTrain.get(0).setID(id);
+		testTrain.get(0).setBreakfast(0);
 		
-    	trainInfo.add(Integer.toString(testTrain.getID())); 
-    	trainInfo.add(testTrain.getFrom());
-    	trainInfo.add(testTrain.getTo());
-    	trainInfo.add(Integer.toString(testTrain.getCapacity()));
-    	trainInfo.add(Integer.toString(testTrain.getBreakfast()));
-    	trainInfo.add(Integer.toString(testTrain.getLunch()));
-    	trainInfo.add(Integer.toString(testTrain.getDinner()));
-    	trainInfo.add(Integer.toString(testTrain.getHardSeat()));
-    	trainInfo.add(Integer.toString(testTrain.getSoftSeat()));
-    	trainInfo.add(Integer.toString(testTrain.getHardSleeper()));
-    	trainInfo.add(Integer.toString(testTrain.getSoftSleeper()));
+    	trainInfo.add(Integer.toString(id)); 
+    	trainInfo.add(testTrain.get(0).getFrom());
+    	trainInfo.add(testTrain.get(0).getTo());
+    	trainInfo.add(Integer.toString(testTrain.get(0).getCapacity()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getBreakfast()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getLunch()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getDinner()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getHardSeat()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getSoftSeat()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getHardSleeper()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getSoftSleeper()));
     	
-    	ArrayList<Train> selectedTrain = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + testTrain.getID());
-		db.updateQuery(selectedTrain.get(testTrain.getID()), trainInfo);
+		db.updateQuery(testTrain.get(0), trainInfo);
 		
 		
 		//Assert
-		Assert.assertEquals(selectedTrain.get(0).getBreakfast(), 1);
+		Assert.assertEquals(testTrain.get(0).getBreakfast(), 0);
 	}
 	
 	@Test
