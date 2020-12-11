@@ -2,9 +2,12 @@ package cen3031.group4.trainTickets;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class TrainTest {
@@ -44,6 +47,37 @@ public class TrainTest {
 		
 		//Assert
 		Assert.assertEquals(testTrain.getDinner(), 1);
+	}
+	
+	@Test
+	public void testTrainUpdateMealToDatabase() {
+		//Arrange
+		TrainDB db = new TrainDB();
+		int id = 101; //testing first train
+		ArrayList<String> trainInfo = new ArrayList<String>();
+		ArrayList<Train> testTrain = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + 101);
+		
+		//Act
+		testTrain.get(0).setID(id);
+		testTrain.get(0).setBreakfast(0);
+		
+    	trainInfo.add(Integer.toString(id)); 
+    	trainInfo.add(testTrain.get(0).getFrom());
+    	trainInfo.add(testTrain.get(0).getTo());
+    	trainInfo.add(Integer.toString(testTrain.get(0).getCapacity()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getBreakfast()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getLunch()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getDinner()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getHardSeat()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getSoftSeat()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getHardSleeper()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getSoftSleeper()));
+    	
+		db.updateQuery(testTrain.get(0), trainInfo);
+		
+		
+		//Assert
+		Assert.assertEquals(testTrain.get(0).getBreakfast(), 0);
 	}
 	
 	@Test
@@ -92,6 +126,37 @@ public class TrainTest {
 		
 		//Assert
 		Assert.assertEquals(testTrain.getHardSeat(), 1);
+	}
+	
+	@Test
+	public void testTrainUpdateSeatToDatabase() {
+		//Arrange
+		TrainDB db = new TrainDB();
+		int id = 101; //testing first train
+		ArrayList<String> trainInfo = new ArrayList<String>();
+		ArrayList<Train> testTrain = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + 101);
+		
+		//Act
+		testTrain.get(0).setID(id);
+		testTrain.get(0).setHardSeat(0);
+		
+    	trainInfo.add(Integer.toString(id)); 
+    	trainInfo.add(testTrain.get(0).getFrom());
+    	trainInfo.add(testTrain.get(0).getTo());
+    	trainInfo.add(Integer.toString(testTrain.get(0).getCapacity()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getBreakfast()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getLunch()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getDinner()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getHardSeat()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getSoftSeat()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getHardSleeper()));
+    	trainInfo.add(Integer.toString(testTrain.get(0).getSoftSleeper()));
+    	
+		db.updateQuery(testTrain.get(0), trainInfo);
+		
+		
+		//Assert
+		Assert.assertEquals(testTrain.get(0).getHardSeat(), 0);
 	}
 	
 	@Test
