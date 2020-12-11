@@ -2,9 +2,12 @@ package cen3031.group4.trainTickets;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class TrainTest {
@@ -44,6 +47,37 @@ public class TrainTest {
 		
 		//Assert
 		Assert.assertEquals(testTrain.getDinner(), 1);
+	}
+	
+	@Test
+	public void testTrainUpdateDatabase() {
+		//Arrange
+		Train testTrain = new Train();
+		TrainDB db = new TrainDB();
+		ArrayList<String> trainInfo = new ArrayList<String>();
+		
+		//Act
+		testTrain.setID(800);
+		testTrain.setBreakfast(1);
+		
+    	trainInfo.add(Integer.toString(testTrain.getID())); 
+    	trainInfo.add(testTrain.getFrom());
+    	trainInfo.add(testTrain.getTo());
+    	trainInfo.add(Integer.toString(testTrain.getCapacity()));
+    	trainInfo.add(Integer.toString(testTrain.getBreakfast()));
+    	trainInfo.add(Integer.toString(testTrain.getLunch()));
+    	trainInfo.add(Integer.toString(testTrain.getDinner()));
+    	trainInfo.add(Integer.toString(testTrain.getHardSeat()));
+    	trainInfo.add(Integer.toString(testTrain.getSoftSeat()));
+    	trainInfo.add(Integer.toString(testTrain.getHardSleeper()));
+    	trainInfo.add(Integer.toString(testTrain.getSoftSleeper()));
+    	
+    	ArrayList<Train> selectedTrain = db.selectQuery("SELECT * FROM Trains WHERE trainID=" + testTrain.getID());
+		db.updateQuery(selectedTrain.get(testTrain.getID()), trainInfo);
+		
+		
+		//Assert
+		Assert.assertEquals(selectedTrain.get(0).getBreakfast(), 1);
 	}
 	
 	@Test
