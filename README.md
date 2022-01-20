@@ -16,7 +16,7 @@
 # **Software Requirements And Design Specification for Railway Reservation**
 
 #### Kenya Holland, Lance Blum, Dylan Morris, Priya Pilla, Evan Jones
-##### Open "Group4_Software_Requirements_and_Design.pdf" to view full development process
+##### Open "Required Software Requirements and Design Template.pdf" to view full development process
 
 ## **Project Description**
 The Railway Reservation System (the product) will likely be a replacement for existing systems, as
