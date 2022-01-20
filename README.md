@@ -41,12 +41,12 @@ routes, meals and types of seats offered, prices, and days that they will travel
 ## **UI**
 This is the opening scene when running App.java.
 
-![image](https://user-images.githubusercontent.com/46533825/150438474-59376653-1547-432d-a7f5-442c75688a8a.png)
+![image](https://user-images.githubusercontent.com/46533825/150438432-c4628812-35d6-476c-99fe-f368c4d2d04e.png)
 
 If you click Exit Program, the program will terminate.
 If you click Book a Ticket Now, you will be redirected to the following page.
 
-![image](https://user-images.githubusercontent.com/46533825/150438432-c4628812-35d6-476c-99fe-f368c4d2d04e.png)
+![image](https://user-images.githubusercontent.com/46533825/150438474-59376653-1547-432d-a7f5-442c75688a8a.png)
 
 On this screen, you can enter your name, select your starting point, and be presented with the
 following destination points as shown in the following picture.
